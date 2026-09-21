@@ -1,0 +1,9 @@
+comparison,slj_metric,pair,n,pearson_r,spearman_r
+NOEXO_L_vs_EXO_R,KneeAbsoluteWork,framework_vs_isokinetic,4,-0.20905447838216565,0.39999999999999997
+NOEXO_L_vs_EXO_R,KneeAbsoluteWork,marker_vs_isokinetic,4,0.1427766841231802,0.19999999999999998
+NOEXO_L_vs_EXO_R,PeakKneeMoment,framework_vs_isokinetic,4,0.04004987289421858,0.19999999999999998
+NOEXO_L_vs_EXO_R,PeakKneeMoment,marker_vs_isokinetic,4,0.2735438673444352,0.39999999999999997
+NOEXO_L_vs_R,KneeAbsoluteWork,framework_vs_isokinetic,4,-0.48352036556831357,-0.39999999999999997
+NOEXO_L_vs_R,KneeAbsoluteWork,marker_vs_isokinetic,4,-0.48738583914685973,-0.39999999999999997
+NOEXO_L_vs_R,PeakKneeMoment,framework_vs_isokinetic,4,0.02867672489449582,-0.19999999999999998
+NOEXO_L_vs_R,PeakKneeMoment,marker_vs_isokinetic,4,-0.08868005375029425,-0.39999999999999997

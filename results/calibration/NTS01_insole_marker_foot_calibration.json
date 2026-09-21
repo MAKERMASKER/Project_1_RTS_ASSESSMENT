@@ -1,0 +1,128 @@
+{
+  "L": {
+    "size": 7,
+    "length_m": 0.288,
+    "width_m": 0.1014,
+    "vertical_force_scale": 0.8570051486991331,
+    "vertical_force_scale_source": "body_weight_over_median_of_accepted_trial_stance_medians",
+    "rigid_offset_local_m": [
+      0.04324142866709449,
+      0.0024151869813612125,
+      0.0
+    ],
+    "cop_mapping": "measured_geometry_plus_rigid_translation"
+  },
+  "R": {
+    "size": 7,
+    "length_m": 0.288,
+    "width_m": 0.1014,
+    "vertical_force_scale": 0.7945077534624623,
+    "vertical_force_scale_source": "body_weight_over_median_of_accepted_trial_stance_medians",
+    "rigid_offset_local_m": [
+      0.03783763159678094,
+      0.007202827383399738,
+      0.0
+    ],
+    "cop_mapping": "measured_geometry_plus_rigid_translation"
+  },
+  "trial_offsets": {
+    "NTS01_NOEXO_SLJ_L_1": {
+      "rigid_offset_local_m": [
+        0.042985952645445746,
+        0.0025071769033621263,
+        0.0
+      ],
+      "method": "same-side leave-one-trial-out"
+    },
+    "NTS01_NOEXO_SLJ_L_2": {
+      "rigid_offset_local_m": [
+        0.04125461972959911,
+        0.002257130652122817,
+        0.0
+      ],
+      "method": "same-side leave-one-trial-out"
+    },
+    "NTS01_NOEXO_SLJ_L_3": {
+      "rigid_offset_local_m": [
+        0.04301691076020525,
+        0.002397063751381343,
+        0.0
+      ],
+      "method": "same-side leave-one-trial-out"
+    },
+    "NTS01_NOEXO_SLJ_L_5": {
+      "rigid_offset_local_m": [
+        0.044217746711351466,
+        0.0024955489179559823,
+        0.0
+      ],
+      "method": "same-side leave-one-trial-out"
+    },
+    "NTS01_NOEXO_SLJ_R_1": {
+      "rigid_offset_local_m": [
+        0.03743132966505063,
+        0.006805714477714903,
+        0.0
+      ],
+      "method": "same-side leave-one-trial-out"
+    },
+    "NTS01_NOEXO_SLJ_R_2": {
+      "rigid_offset_local_m": [
+        0.03661660126595492,
+        0.00694228669372968,
+        0.0
+      ],
+      "method": "same-side leave-one-trial-out"
+    },
+    "NTS01_NOEXO_SLJ_R_3": {
+      "rigid_offset_local_m": [
+        0.038102857894664346,
+        0.006779901677035156,
+        0.0
+      ],
+      "method": "same-side leave-one-trial-out"
+    },
+    "NTS01_NOEXO_SLJ_R_5": {
+      "rigid_offset_local_m": [
+        0.03715127524568387,
+        0.006890381545397677,
+        0.0
+      ],
+      "method": "same-side leave-one-trial-out"
+    },
+    "NTS01_EXO_SLJ_R_1": {
+      "rigid_offset_local_m": [
+        0.03904553028017135,
+        0.007628104906584169,
+        0.0
+      ],
+      "method": "same-side leave-one-trial-out"
+    },
+    "NTS01_EXO_SLJ_R_2": {
+      "rigid_offset_local_m": [
+        0.038805522813879806,
+        0.007794064986883852,
+        0.0
+      ],
+      "method": "same-side leave-one-trial-out"
+    },
+    "NTS01_EXO_SLJ_R_4": {
+      "rigid_offset_local_m": [
+        0.03818294111682016,
+        0.007451201073668628,
+        0.0
+      ],
+      "method": "same-side leave-one-trial-out"
+    },
+    "NTS01_EXO_SLJ_R_5": {
+      "rigid_offset_local_m": [
+        0.03691635496969922,
+        0.007660852425972838,
+        0.0
+      ],
+      "method": "same-side leave-one-trial-out"
+    }
+  },
+  "version": "per_side_v1",
+  "geometry_source": "measured insole dimensions"
+}

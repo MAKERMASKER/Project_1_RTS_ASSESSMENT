@@ -1,0 +1,47 @@
+# Python virtual environment (large, machine-specific -- reinstall from
+# requirements instead of tracking)
+opensimPy/
+.venv/
+venv/
+
+# Environment / secrets
+.env
+*.env
+
+# Raw + processed subject data (large, not source-controlled)
+data/
+
+# Validation scratch outputs (regenerated on demand from results/)
+validation/
+
+# Old/backup data snapshots
+dump/
+
+# resources/ -- keep only .md files (literature_notes.md etc.); exclude the
+# reference pipeline code/data and generic OpenSim tutorial assets (not
+# project-specific, large binary meshes)
+resources/_old_reference_code/
+resources/_opensim_reference/
+resources/_python_coding_reference/
+
+# OpenSim model files -- wherever they occur (per-subject scaled models in
+# results/, experimental models in code/expt_temp/), EXCEPT the source
+# unscaled model templates in code/assets/models/unscaled/ (~3.6MB) -- those
+# are code, needed to actually run the pipeline, not generated data.
+*.osim
+!code/assets/models/unscaled/*.osim
+
+# Logs
+*.log
+
+# Claude Code session/local project settings
+.claude/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db

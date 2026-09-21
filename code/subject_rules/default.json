@@ -1,0 +1,16 @@
+{
+    "force_scale_mode": {"L": "body_weight_from_stable_side_force", "R": "body_weight_from_stable_side_force"},
+    "force_scale": {"L": 1.0, "R": 1.0},
+    "exclude": [],
+    "use_last_flight_peak": [],
+    "landing_ordinal": {},
+    "opencap_aliases": {},
+    "insole_aliases": {},
+    "opencap_session_overrides": {},
+    "repaired_trials": [],
+    "insole_vertical_weight": 1.0,
+    "com_vertical_weight": 0.0,
+    "rotation_force_activities": [],
+    "rotation_force_weight_x": 0.0,
+    "rotation_force_weight_z": 0.0
+}

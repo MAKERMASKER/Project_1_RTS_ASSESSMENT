@@ -1,0 +1,17 @@
+{
+    "force_scale_mode": {"L": "fixed", "R": "fixed"},
+    "force_scale": {"L": 0.9360089429103714, "R": 0.9528896385843109},
+    "force_scale_note": "2026-09-17: switched from the auto quality-gated stance detector (which only found a usable R-side window, 3 trials) to manually-selected stance windows per side, picked visually via code/expt_temp/Insole_vertical_force_calib_window/select_stance_windows.py (4 L-side / 8 R-side trials accepted -- see AB05_manual_stance_selections.csv/AB05_manual_calibration.json in that folder). Verified against real marker peak GRF: raw insole over-read landing peaks by 24-47%; this gain only partially corrects it (18-37% residual on both sides) -- adopted as directionally correct and never worse than raw, but flagged as NOT fully resolved; treat AB05's framework-vs-marker peak GRF and any downstream LSI as carrying real residual uncertainty.",
+    "exclude": [],
+    "use_last_flight_peak": [],
+    "landing_ordinal": {},
+    "opencap_aliases": {},
+    "insole_aliases": {},
+    "opencap_session_overrides": {},
+    "repaired_trials": [],
+    "insole_vertical_weight": 1.0,
+    "com_vertical_weight": 0.0,
+    "rotation_force_activities": [],
+    "rotation_force_weight_x": 0.0,
+    "rotation_force_weight_z": 0.0
+}

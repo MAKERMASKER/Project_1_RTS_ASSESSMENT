@@ -1,0 +1,5 @@
+subject,comparison,slj_metric,iso_metric,framework_lsi,marker_lsi,isokinetic_lsi,slj_test_trials,slj_reference_trials
+AB08,NOEXO_L_vs_R,PeakKneeMoment,peak_torque,114.1652100198908,95.73512271692108,97.43589744,5,3
+AB08,NOEXO_L_vs_R,KneeAbsoluteWork,total_work,80.74196649942124,88.29357380330234,93.09309309,5,3
+AB08,NOEXO_L_vs_EXO_R,PeakKneeMoment,peak_torque,129.8246591081929,106.9396737073304,93.44262295,5,4
+AB08,NOEXO_L_vs_EXO_R,KneeAbsoluteWork,total_work,65.59790997376376,78.88332980292192,87.4471086,5,4
