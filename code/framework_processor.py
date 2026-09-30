@@ -159,7 +159,12 @@ class FrameworkProcessor:
                 setup_folder=trial.output / "setup",
             )
 
-        selected_right = trial.side == "R"
+        # sync["sync_side"] defaults to trial.side for every existing
+        # activity (unchanged behavior) but lets a bilateral activity with
+        # no single trial-wide side (SkaterHop: trial.side is None) report
+        # which side its sync actually anchored on instead of silently
+        # falling through to "left" via `None == "R"` -> False.
+        selected_right = sync["sync_side"] == "R"
         selected_force = right_force if selected_right else left_force
         selected_cop = right_cop if selected_right else left_cop
         selected_contact = right_contact if selected_right else left_contact
@@ -229,6 +234,25 @@ class FrameworkProcessor:
         return padded, core_start, core_stop
 
     @staticmethod
+    def _vertical_scale(calibration: dict, activity, side: str) -> float:
+        """This activity's own insole gain if the calibration carries one,
+        else the subject-wide gain.
+
+        The subject-wide value is fit from SLJ quiet stance only
+        (calibration.py), so a calibration MAY additionally supply
+        `per_activity[<activity>][<side>]["vertical_force_scale"]`. Whether
+        those values are trustworthy is a property of the data written into
+        the file (each carries its own `vertical_force_scale_source`), not of
+        this lookup -- see expt_temp/cross_activity_gain_check/README.md.
+        """
+        override = (
+            calibration.get("per_activity", {}).get(activity.name, {}).get(side, {})
+        )
+        if "vertical_force_scale" in override:
+            return float(override["vertical_force_scale"])
+        return float(calibration[side]["vertical_force_scale"])
+
+    @staticmethod
     def _placement_for(calibration: dict, trial, side: str) -> dict:
         placement = dict(calibration[side])
         placement.update(calibration.get("trial_offsets", {}).get(trial.name, {}))
@@ -264,8 +288,8 @@ class FrameworkProcessor:
         # correction actually takes effect.
         insole_weight = float(rules["insole_vertical_weight"])
         com_weight = float(rules["com_vertical_weight"])
-        right_scale = float(calibration["R"]["vertical_force_scale"])
-        left_scale = float(calibration["L"]["vertical_force_scale"])
+        right_scale = self._vertical_scale(calibration, activity, "R")
+        left_scale = self._vertical_scale(calibration, activity, "L")
         right_vertical = insole_weight * right_scale * right_vertical + com_weight * total_grf[:, 1] * right_fraction
         left_vertical = insole_weight * left_scale * left_vertical + com_weight * total_grf[:, 1] * left_fraction
 
@@ -311,9 +335,15 @@ class FrameworkProcessor:
         return right_force, right_cop, right_contact, left_force, left_cop, left_contact
 
     def _plot_sync(self, trial, trc, time, raw_insole_force, framework_force, sync):
-        """Match the toe-height/insole-force synchronization diagnostic plot."""
+        """Match the toe-height/insole-force synchronization diagnostic plot.
+
+        Uses sync["sync_side"], not trial.side directly -- for every
+        existing activity these are the same (see Activity._finish_sync()),
+        but SkaterHop's trial.side is None (bilateral, no single side) and
+        InsoleGeometry.foot_height() would raise KeyError on a bare None.
+        """
         relative_time = time - sync["peak_grf_time_s"]
-        toe_height = np.interp(time, trc["time"], InsoleGeometry.foot_height(trc, trial.side))
+        toe_height = np.interp(time, trc["time"], InsoleGeometry.foot_height(trc, sync["sync_side"]))
 
         figure, axes = plt.subplots(2, 1, figsize=(9, 6.5), sharex=True)
         force_axis = axes[0].twinx()

@@ -1,39 +1,132 @@
 {
-    "force_scale_mode": {
-        "L": "fixed",
-        "R": "fixed"
+  "force_scale_mode": {
+    "L": "fixed",
+    "R": "fixed"
+  },
+  "force_scale": {
+    "L": 0.6812855805186856,
+    "R": 0.6895696457313928
+  },
+  "force_scale_note": "2026-09-17: switched from the auto quality-gated stance detector (which found no qualifying window for either side) to a manually-selected stance window per side, picked visually via code/expt_temp/Insole_vertical_force_calib_window/select_stance_windows.py (4 L-side / 5 R-side trials accepted -- see AB03_manual_stance_selections.csv/AB03_manual_calibration.json in that folder). Verified against real marker peak GRF: raw insole over-read landing peaks by 17-29%; this gain brings it to -11 to -20% (net improvement, not fully resolved).",
+  "exclude": [
+    "AB03_EXO_SLJ_R_4",
+    "AB03_NOEXO_SLJ_L_1"
+  ],
+  "use_last_flight_peak": [],
+  "landing_ordinal": {},
+  "opencap_aliases": {
+    "AB03_NOEXO_SLJ_L_1": "ABO3_NOEXO_SLJ_L_1",
+    "AB03_NOEXO_SLJ_L_2": "ABO3_NOEXO_SLJ_L_2",
+    "AB03_NOEXO_SLJ_L_3": "ABO3_NOEXO_SLJ_L_3",
+    "AB03_NOEXO_SLJ_L_4": "ABO3_NOEXO_SLJ_L_4",
+    "AB03_NOEXO_SLJ_L_5": "ABO3_NOEXO_SLJ_L_5",
+    "AB03_NOEXO_SLJ_L_6": "ABO3_NOEXO_SLJ_L_6",
+    "AB03_NOEXO_SLJ_L_7": "ABO3_NOEXO_SLJ_L_7",
+    "AB03_NOEXO_SLJ_R_1": "ABO3_NOEXO_SLJ_R_1",
+    "AB03_NOEXO_SLJ_R_2": "ABO3_NOEXO_SLJ_R_2",
+    "AB03_NOEXO_SLJ_R_3": "ABO3_NOEXO_SLJ_R_3",
+    "AB03_NOEXO_SLJ_R_4": "ABO3_NOEXO_SLJ_R_4",
+    "AB03_NOEXO_SLJ_R_5": "ABO3_NOEXO_SLJ_R_5",
+    "AB03_NOEXO_SKH_1": "ABO3_NOEXO_SKH_1",
+    "AB03_NOEXO_SKH_2": "ABO3_NOEXO_SKH_2",
+    "AB03_NOEXO_LH_L_1": "ABO3_NOEXO_LH_L_1",
+    "AB03_NOEXO_LH_L_2": "ABO3_NOEXO_LH_L_2",
+    "AB03_NOEXO_LH_R_1": "ABO3_NOEXO_LH_R_1",
+    "AB03_NOEXO_LH_R_2": "ABO3_NOEXO_LH_R_2",
+    "AB03_NOEXO_TH_L_1": "ABO3_NOEXO_TH_L_1",
+    "AB03_NOEXO_TH_L_2": "ABO3_NOEXO_TH_L_2",
+    "AB03_NOEXO_TH_L_3": "ABO3_NOEXO_TH_L_3",
+    "AB03_NOEXO_TH_L_4": "ABO3_NOEXO_TH_L_4",
+    "AB03_NOEXO_TH_L_5": "ABO3_NOEXO_TH_L_5",
+    "AB03_NOEXO_TH_L_6": "ABO3_NOEXO_TH_L_6",
+    "AB03_NOEXO_TH_R_1": "ABO3_NOEXO_TH_R_1",
+    "AB03_NOEXO_TH_R_2": "ABO3_NOEXO_TH_R_2",
+    "AB03_NOEXO_TH_R_3": "ABO3_NOEXO_TH_R_3",
+    "AB03_NOEXO_TH_R_4": "ABO3_NOEXO_TH_R_4",
+    "AB03_NOEXO_TH_R_5": "ABO3_NOEXO_TH_R_5",
+    "AB03_NOEXO_TH_R_6": "ABO3_NOEXO_TH_R_6"
+  },
+  "insole_aliases": {},
+  "opencap_session_overrides": {},
+  "repaired_trials": [],
+  "insole_vertical_weight": 1.0,
+  "com_vertical_weight": 0.0,
+  "rotation_force_activities": [
+    "single_leg_jump"
+  ],
+  "rotation_force_weight_x": 0.5,
+  "rotation_force_weight_z": 0.5,
+  "rotation_force_note": "Enabled 2026-09-16 to match AB08's tuned H-dot blend weights, for a same-subject before/after GRF comparison -- see results/additional_performance_GRF_Checks/AB03/GRF/.",
+  "note": "AB03 NOEXO OpenCap session trial files are misnamed ABO3_... (letter O) instead of AB03_... -- opencap_aliases maps every canonical NOEXO SLJ trial name to its actual OpenCap filename. The EXO session does not have this typo. AB03_NOEXO_SLJ_L_2 has no corresponding OpenCap trial at all (not just a naming issue) -- confirmed missing from the downloaded session.",
+  "exclude_note": "AB03_EXO_SLJ_R_4: anomalous knee-moment RMSE outlier vs. marker (~188 Nm vs. 20-90 Nm elsewhere). AB03_NOEXO_SLJ_L_1: OpenCap IK fails to track real knee flexion during landing (stays near 1-6 degrees throughout instead of a proper ~90 degree landing bend, confirmed by direct inspection of the IK/moment/power traces) -- corrupts GRF (COM double-differentiation), knee absolute work, and any 3D visualization of this trial. Both confirmed 2026-09 via direct numeric/visual inspection, not assumed.",
+  "lh_manual_sync": {
+    "AB03_EXO_LH_R_1": {
+      "status": "synced",
+      "insole_click_s": 92.35,
+      "opencap_click_s": 2.9608,
+      "source": "state_machine_auto_sync"
     },
-    "force_scale": {
-        "L": 0.6812855805186856,
-        "R": 0.6895696457313928
+    "AB03_EXO_LH_R_2": {
+      "status": "synced",
+      "insole_click_s": 93.22,
+      "opencap_click_s": 3.3083,
+      "source": "state_machine_auto_sync"
     },
-    "force_scale_note": "2026-09-17: switched from the auto quality-gated stance detector (which found no qualifying window for either side) to a manually-selected stance window per side, picked visually via code/expt_temp/Insole_vertical_force_calib_window/select_stance_windows.py (4 L-side / 5 R-side trials accepted -- see AB03_manual_stance_selections.csv/AB03_manual_calibration.json in that folder). Verified against real marker peak GRF: raw insole over-read landing peaks by 17-29%; this gain brings it to -11 to -20% (net improvement, not fully resolved).",
-    "exclude": ["AB03_EXO_SLJ_R_4", "AB03_NOEXO_SLJ_L_1"],
-    "use_last_flight_peak": [],
-    "landing_ordinal": {},
-    "opencap_aliases": {
-        "AB03_NOEXO_SLJ_L_1": "ABO3_NOEXO_SLJ_L_1",
-        "AB03_NOEXO_SLJ_L_2": "ABO3_NOEXO_SLJ_L_2",
-        "AB03_NOEXO_SLJ_L_3": "ABO3_NOEXO_SLJ_L_3",
-        "AB03_NOEXO_SLJ_L_4": "ABO3_NOEXO_SLJ_L_4",
-        "AB03_NOEXO_SLJ_L_5": "ABO3_NOEXO_SLJ_L_5",
-        "AB03_NOEXO_SLJ_L_6": "ABO3_NOEXO_SLJ_L_6",
-        "AB03_NOEXO_SLJ_L_7": "ABO3_NOEXO_SLJ_L_7",
-        "AB03_NOEXO_SLJ_R_1": "ABO3_NOEXO_SLJ_R_1",
-        "AB03_NOEXO_SLJ_R_2": "ABO3_NOEXO_SLJ_R_2",
-        "AB03_NOEXO_SLJ_R_3": "ABO3_NOEXO_SLJ_R_3",
-        "AB03_NOEXO_SLJ_R_4": "ABO3_NOEXO_SLJ_R_4",
-        "AB03_NOEXO_SLJ_R_5": "ABO3_NOEXO_SLJ_R_5"
+    "AB03_EXO_LH_R_3": {
+      "status": "synced",
+      "insole_click_s": 94.56,
+      "opencap_click_s": 4.4175,
+      "source": "state_machine_auto_sync"
     },
-    "insole_aliases": {},
-    "opencap_session_overrides": {},
-    "repaired_trials": [],
-    "insole_vertical_weight": 1.0,
-    "com_vertical_weight": 0.0,
-    "rotation_force_activities": ["single_leg_jump"],
-    "rotation_force_weight_x": 0.5,
-    "rotation_force_weight_z": 0.5,
-    "rotation_force_note": "Enabled 2026-09-16 to match AB08's tuned H-dot blend weights, for a same-subject before/after GRF comparison -- see results/additional_performance_GRF_Checks/AB03/GRF/.",
-    "note": "AB03 NOEXO OpenCap session trial files are misnamed ABO3_... (letter O) instead of AB03_... -- opencap_aliases maps every canonical NOEXO SLJ trial name to its actual OpenCap filename. The EXO session does not have this typo. AB03_NOEXO_SLJ_L_2 has no corresponding OpenCap trial at all (not just a naming issue) -- confirmed missing from the downloaded session.",
-    "exclude_note": "AB03_EXO_SLJ_R_4: anomalous knee-moment RMSE outlier vs. marker (~188 Nm vs. 20-90 Nm elsewhere). AB03_NOEXO_SLJ_L_1: OpenCap IK fails to track real knee flexion during landing (stays near 1-6 degrees throughout instead of a proper ~90 degree landing bend, confirmed by direct inspection of the IK/moment/power traces) -- corrupts GRF (COM double-differentiation), knee absolute work, and any 3D visualization of this trial. Both confirmed 2026-09 via direct numeric/visual inspection, not assumed."
+    "AB03_NOEXO_LH_L_1": {
+      "status": "synced",
+      "insole_click_s": 91.49,
+      "opencap_click_s": 2.2287,
+      "source": "state_machine_auto_sync"
+    },
+    "AB03_NOEXO_LH_L_2": {
+      "status": "synced",
+      "insole_click_s": 92.36,
+      "opencap_click_s": 2.93,
+      "source": "state_machine_auto_sync"
+    },
+    "AB03_NOEXO_LH_R_1": {
+      "status": "synced",
+      "insole_click_s": 92.0,
+      "opencap_click_s": 2.05,
+      "source": "state_machine_auto_sync"
+    },
+    "AB03_NOEXO_LH_R_2": {
+      "status": "synced",
+      "insole_click_s": 93.76,
+      "opencap_click_s": 4.5496,
+      "source": "state_machine_auto_sync"
+    }
+  },
+  "skh_manual_sync": {
+    "AB03_EXO_SKH_1": {
+      "status": "synced",
+      "insole_click_s": 91.82,
+      "opencap_click_s": 3.76,
+      "source": "state_machine_auto_sync"
+    },
+    "AB03_EXO_SKH_2": {
+      "status": "synced",
+      "insole_click_s": 91.66,
+      "opencap_click_s": 3.1733,
+      "source": "state_machine_auto_sync"
+    },
+    "AB03_NOEXO_SKH_1": {
+      "status": "synced",
+      "insole_click_s": 93.29,
+      "opencap_click_s": 4.6512,
+      "source": "state_machine_auto_sync"
+    },
+    "AB03_NOEXO_SKH_2": {
+      "status": "synced",
+      "insole_click_s": 92.66,
+      "opencap_click_s": 4.2058,
+      "source": "state_machine_auto_sync"
+    }
+  }
 }

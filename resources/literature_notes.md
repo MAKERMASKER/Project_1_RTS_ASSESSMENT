@@ -5,6 +5,11 @@ Add to this as you or Claude find more papers -- don't let findings live
 only in a chat transcript. One section per topic; newest addition at the
 bottom of each section with the date it was added.
 
+**See also**: `resources/opensimad_gain_calibration_investigation.md` --
+this project's own experimental log (not published literature) for the
+"OpenSimAD as a marker-ground-truth-free insole gain reference"
+investigation, paused 2026-09-24.
+
 ## Insole pressure GRF accuracy
 
 - **loadsol accuracy vs. force plates** (running): mean bias for ground contact
@@ -62,6 +67,75 @@ subject or a second outcome metric -- not a settled conclusion).
   [ResearchGate](https://www.researchgate.net/publication/230781150_In-shoe_center_of_pressure_Indirect_force_plate_vs_direct_insole_measurement)
 
 _Added 2026-09-09, initial literature pass for the SLJ pipeline plan._
+
+## Double-integrating GRF for displacement (COM reconstruction)
+
+Investigated 2026-09-23 while validating the framework pipeline's vertical
+GRF (see `code/expt_temp/grf_double_integration_check/`): double-integrating
+GRF-derived acceleration and comparing the reconstructed COM trajectory
+against the real (kinematics-measured) one. Known, general issues with this
+technique -- some confirmed empirically against this project's own data,
+not just cited from elsewhere:
+
+- **Quadratic drift from any constant bias.** A textbook signal-processing
+  fact (the same reason inertial-navigation/IMU dead-reckoning drifts over
+  time): a *constant* force-measurement bias of magnitude `e` produces a
+  position error growing as `(e/mass) * t^2 / 2`. A bias small enough to
+  look "reasonably calibrated" against peak-force comparisons (single-digit
+  percent) can still produce large absolute displacement error once
+  integrated twice over a ~1.5s window -- confirmed on this project's own
+  best-calibrated subject (AB07, ~5% mean peak-GRF error) still showing
+  ~950mm of vertical displacement drift.
+- **Unknown initial velocity is unavoidable.** Displacement reconstruction
+  needs a velocity boundary condition; there's no way to measure true
+  initial velocity directly from GRF alone, so it must be estimated (here,
+  finite-differenced from the first couple of measured COM samples), and
+  any error there propagates linearly across the whole window on top of
+  the bias-driven quadratic error -- a second, independent error source
+  that can't be separated from GRF error using displacement alone.
+- **Impact-transient under-resolution disproportionately corrupts double
+  integration.** The already-documented OpenCap landing literature finding
+  above (peak landing force bias >40%, from sample-rate mismatch + low-pass
+  filtering killing the fast impact transient) matters *more* here than for
+  a simple peak comparison: double integration concentrates its error where
+  the signal changes fastest (push-off and landing), because that's where
+  a shape/timing mismatch (not just a magnitude one) has the most impulse
+  to get wrong. Confirmed directly on real data: AB07's reconstructed
+  vertical velocity overshot the real takeoff velocity by ~1 m/s within
+  0.3s of push-off, and failed to reproduce the real landing's sharp
+  negative-velocity excursion at 0.6-0.75s.
+- **Smoothing does not fix this -- tested, not assumed.** Low-pass
+  filtering (4.5 Hz, this project's existing `id_lowpass_hz`) both the GRF
+  signal and the kinematic reference before integrating was tested across
+  all 6 subjects/all valid SLJ trials: it *worsened* the mean displacement
+  error for 4 of 6 subjects (up to +41%) and left the overall mean
+  essentially unchanged (1258mm -> 1267mm). This rules out high-frequency
+  sensor noise as the dominant error source -- the mismatch is a genuine
+  low-frequency shape/magnitude discrepancy at the timescale of the
+  movement itself, which no amount of filtering can remove without also
+  removing real signal.
+- **Impulse (single integration) stays far more reliable than displacement
+  (double integration).** Matches the existing OpenCap literature's own
+  recommendation ("trust propulsive-phase/impulse metrics over landing-peak
+  force") -- confirmed here too: the same subjects' impulse-momentum
+  (velocity-change) errors were an order of magnitude more consistent
+  (0.5-3.6 m/s across subjects) than their double-integrated displacement
+  errors, and ranked the same subjects in the same good-to-bad order.
+- **Insole-specific error profile differs from COM-derived error.** The
+  Insole3 validity finding above (insoles *underestimate* vGRF peaks but
+  *overestimate* impulse) means a "pure insole" vertical GRF (this
+  project's preferred blend weight for peak-GRF accuracy, per the
+  2026-09-11 sweep above) is not automatically the best choice for
+  displacement-level accuracy -- the peak-accuracy-optimal setting and the
+  displacement-accuracy-optimal setting could differ; not yet tested here.
+
+**Practical takeaway for this project**: treat double-integration
+displacement checks as a *relative*, amplified confirmation signal (good
+for flagging which subject/trial is clearly worse than another -- it
+caught AB10's broken calibration decisively) rather than as an absolute
+accuracy metric in millimeters, and don't expect filtering to rescue a bad
+result -- if smoothing doesn't help, the problem is in the signal's real
+shape, not its noise floor.
 
 ## LSI / RTS clinical context
 

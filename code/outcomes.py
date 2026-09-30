@@ -133,29 +133,56 @@ class OutcomeExtractor:
         marker_id_table = read_storage(marker_id_path)
         marker_ik_table = read_storage(marker_ik_path)
         force_plate = read_storage(trial.force_mot)
-        plate = 1 if trial.side == "R" else 2
+        # trial.side is None for a bilateral activity with no committed side
+        # (SkaterHop) -- its framework side (npz's "force"/"grf_N") is
+        # already the fixed sync-anchor side ("R", see SkaterHop
+        # .synchronize()'s sync_side="R" in activities.py), so the marker
+        # side to compare against must be "R" too, not silently fall
+        # through `trial.side == "R"` (False for None) to the wrong (left)
+        # plate/angle/moment columns.
+        side = trial.side if trial.side is not None else "R"
+        plate = 1 if side == "R" else 2
 
         marker_vertical = np.abs(force_plate[f"ground_force_{plate}_vy"].to_numpy(float))
         shift = float(time[np.argmax(force)] - force_plate.time.iloc[np.argmax(marker_vertical)])
         marker_force = _interp(force_plate.time + shift, marker_vertical, time)
-        marker_force_x = _interp(
+        marker_force_x_native = _interp(
             force_plate.time + shift, force_plate[f"ground_force_{plate}_vx"].to_numpy(float), time
         )
-        marker_force_z = _interp(
+        marker_force_z_native = _interp(
             force_plate.time + shift, force_plate[f"ground_force_{plate}_vz"].to_numpy(float), time
         )
+        # CONFIRMED 2026-09-23: the marker-mocap lab's global frame is
+        # rotated ~90deg relative to OpenCap's own global frame (two
+        # independently-calibrated systems -- lab wand calibration vs.
+        # OpenCap's own camera checkerboard calibration -- with no shared
+        # orientation guarantee). Verified across 3 subjects via COM and
+        # pelvis-translation cross-correlation (see
+        # code/expt_temp/axis_consistency_check/ and
+        # resources/literature_notes.md): opencap_X == +marker_Z,
+        # opencap_Z == -marker_X (the crossed pairs correlate at
+        # |r| > 0.93 on every trial checked; the naive "matched" X-vs-X/
+        # Z-vs-Z pairs are weak and inconsistent in sign across subjects).
+        # This affects ONLY raw global Fx/Fz (and COM X/Z) -- COP-in-foot-
+        # frame (InsoleGeometry.to_local() below, built fresh from each
+        # trial's own foot markers) and joint moments (from each
+        # pipeline's own independent ID, expressed in that model's own
+        # joint-local axes) are anatomically/joint-referenced and
+        # confirmed frame-invariant, not corrected here.
+        marker_force_x = marker_force_z_native
+        marker_force_z = -marker_force_x_native
 
         marker_cop = force_plate[[f"ground_force_{plate}_p{axis}" for axis in "xyz"]].to_numpy(float)
         if np.nanmedian(np.abs(marker_cop)) > 2:
             marker_cop = marker_cop / 1000
         marker_local = InsoleGeometry.to_local(
-            read_trc(trial.marker_trc), force_plate.time.to_numpy(), marker_cop, trial.side
+            read_trc(trial.marker_trc), force_plate.time.to_numpy(), marker_cop, side
         )
         marker_local = np.column_stack([
             _interp(force_plate.time + shift, marker_local[:, axis], time) for axis in range(2)
         ])
         framework_local = InsoleGeometry.to_local(
-            read_trc(trial.effective_opencap_trc()), time, cop, trial.side
+            read_trc(trial.effective_opencap_trc()), time, cop, side
         )[:, :2]
 
         shared = _guarded(contact & (marker_force >= self.config.contact_force_n), time)
@@ -164,7 +191,7 @@ class OutcomeExtractor:
         marker_local[~shared] = np.nan
         framework_local[~shared] = np.nan
 
-        suffix = trial.side.lower()
+        suffix = side.lower()
         angles = [f"hip_flexion_{suffix}", f"knee_angle_{suffix}", f"ankle_angle_{suffix}"]
         moments = [f"{angle}_moment" for angle in angles]
         framework_angle = np.column_stack([framework_ik[angle] for angle in angles])
@@ -221,7 +248,7 @@ class OutcomeExtractor:
         successful_jumps = int(data.get("successful_lateral_jumps", 0))
 
         row = [
-            trial.name, activity.name, trial.condition, trial.side,
+            trial.name, activity.name, trial.condition, side,
             np.nanmax(grf[landing, 1]), np.nanmax(marker_force[landing]),
             _rms(grf[shared, 1] - marker_force[shared]),
             _rms(grf[shared, 0] - marker_force_x[shared]), _rms(grf[shared, 2] - marker_force_z[shared]),

@@ -1,41 +1,129 @@
 {
-    "exclude": [],
-    "use_last_flight_peak": [],
-    "landing_ordinal": {},
-    "opencap_aliases": {},
-    "insole_aliases": {
-        "AB10_NOEXO_SLJ_L_1": "AB010_NOEXO_SLJ_L_1",
-        "AB10_NOEXO_SLJ_L_2": "AB010_NOEXO_SLJ_L_2",
-        "AB10_NOEXO_SLJ_L_3": "AB010_NOEXO_SLJ_L_3",
-        "AB10_NOEXO_SLJ_L_4": "AB010_NOEXO_SLJ_L_4",
-        "AB10_NOEXO_SLJ_L_5": "AB010_NOEXO_SLJ_L_5",
-        "AB10_NOEXO_SLJ_L_6": "AB010_NOEXO_SLJ_L_6",
-        "AB10_NOEXO_SLJ_R_1": "AB010_NOEXO_SLJ_R_1",
-        "AB10_NOEXO_SLJ_R_2": "AB010_NOEXO_SLJ_R_2",
-        "AB10_NOEXO_SLJ_R_3": "AB010_NOEXO_SLJ_R_3",
-        "AB10_NOEXO_SLJ_R_4": "AB010_NOEXO_SLJ_R_4",
-        "AB10_NOEXO_SLJ_R_5": "AB010_NOEXO_SLJ_R_5",
-        "AB10_EXO_SLJ_R_1": "AB010_EXO_SLJ_R_1",
-        "AB10_EXO_SLJ_R_2": "AB010_EXO_SLJ_R_2",
-        "AB10_EXO_SLJ_R_3": "AB010_EXO_SLJ_R_3",
-        "AB10_EXO_SLJ_R_4": "AB010_EXO_SLJ_R_4",
-        "AB10_EXO_SLJ_R_5": "AB010_EXO_SLJ_R_5",
-        "AB10_NOEXO_WALK_1": "AB010_NOEXO_WALK_1",
-        "AB10_NOEXO_WALK_2": "AB010_NOEXO_WALK_2",
-        "AB10_NOEXO_SKH_1": "AB010_NOEXO_SKH_1",
-        "AB10_NOEXO_SKH_2": "AB010_NOEXO_SKH_2",
-        "AB10_EXO_SKH_1": "AB010_EXO_SKH_1",
-        "AB10_EXO_SKH_2": "AB010_EXO_SKH_2",
-        "AB10_NOEXO_LH_L_1": "AB010_NOEXO_LH_L_1",
-        "AB10_NOEXO_LH_L_2": "AB010_NOEXO_LH_L_2",
-        "AB10_NOEXO_LH_R_1": "AB010_NOEXO_LH_R_1",
-        "AB10_NOEXO_LH_R_2": "AB010_NOEXO_LH_R_2",
-        "AB10_EXO_LH_R_1": "AB010_EXO_LH_R_1",
-        "AB10_EXO_LH_R_2": "AB010_EXO_LH_R_2"
+  "force_scale_mode": {
+    "L": "fixed",
+    "R": "fixed"
+  },
+  "force_scale": {
+    "L": 1.1112270875214278,
+    "R": 1.099133985523108
+  },
+  "force_scale_note": "2026-09-23: switched from the auto quality-gated stance detector (body_weight_over_median_stable_side_force, which had been finding an implausible stance reference and producing a wildly wrong gain of 2.87-2.89 -- +176% mean peak-GRF error, confirmed the worst calibration of any subject, and independently re-confirmed by a GRF double-integration consistency check showing AB10's reconstructed COM drifting ~7.7m vs every other subject's <1.3m) to manually-selected stance windows per side, picked visually via code/expt_temp/Insole_vertical_force_calib_window/select_stance_windows.py (5 L-side / 8 R-side trials accepted -- see AB10_manual_stance_selections.csv/AB10_manual_calibration.json in that folder).",
+  "exclude": [],
+  "use_last_flight_peak": [],
+  "landing_ordinal": {},
+  "opencap_aliases": {},
+  "insole_aliases": {
+    "AB10_NOEXO_SLJ_L_1": "AB010_NOEXO_SLJ_L_1",
+    "AB10_NOEXO_SLJ_L_2": "AB010_NOEXO_SLJ_L_2",
+    "AB10_NOEXO_SLJ_L_3": "AB010_NOEXO_SLJ_L_3",
+    "AB10_NOEXO_SLJ_L_4": "AB010_NOEXO_SLJ_L_4",
+    "AB10_NOEXO_SLJ_L_5": "AB010_NOEXO_SLJ_L_5",
+    "AB10_NOEXO_SLJ_L_6": "AB010_NOEXO_SLJ_L_6",
+    "AB10_NOEXO_SLJ_R_1": "AB010_NOEXO_SLJ_R_1",
+    "AB10_NOEXO_SLJ_R_2": "AB010_NOEXO_SLJ_R_2",
+    "AB10_NOEXO_SLJ_R_3": "AB010_NOEXO_SLJ_R_3",
+    "AB10_NOEXO_SLJ_R_4": "AB010_NOEXO_SLJ_R_4",
+    "AB10_NOEXO_SLJ_R_5": "AB010_NOEXO_SLJ_R_5",
+    "AB10_EXO_SLJ_R_1": "AB010_EXO_SLJ_R_1",
+    "AB10_EXO_SLJ_R_2": "AB010_EXO_SLJ_R_2",
+    "AB10_EXO_SLJ_R_3": "AB010_EXO_SLJ_R_3",
+    "AB10_EXO_SLJ_R_4": "AB010_EXO_SLJ_R_4",
+    "AB10_EXO_SLJ_R_5": "AB010_EXO_SLJ_R_5",
+    "AB10_NOEXO_WALK_1": "AB010_NOEXO_WALK_1",
+    "AB10_NOEXO_WALK_2": "AB010_NOEXO_WALK_2",
+    "AB10_NOEXO_SKH_1": "AB010_NOEXO_SKH_1",
+    "AB10_NOEXO_SKH_2": "AB010_NOEXO_SKH_2",
+    "AB10_EXO_SKH_1": "AB010_EXO_SKH_1",
+    "AB10_EXO_SKH_2": "AB010_EXO_SKH_2",
+    "AB10_NOEXO_LH_L_1": "AB010_NOEXO_LH_L_1",
+    "AB10_NOEXO_LH_L_2": "AB010_NOEXO_LH_L_2",
+    "AB10_NOEXO_LH_R_1": "AB010_NOEXO_LH_R_1",
+    "AB10_NOEXO_LH_R_2": "AB010_NOEXO_LH_R_2",
+    "AB10_EXO_LH_R_1": "AB010_EXO_LH_R_1",
+    "AB10_EXO_LH_R_2": "AB010_EXO_LH_R_2",
+    "AB10_NOEXO_TH_L_1": "AB010_NOEXO_TH_L_1",
+    "AB10_NOEXO_TH_L_2": "AB010_NOEXO_TH_L_2",
+    "AB10_NOEXO_TH_L_3": "AB010_NOEXO_TH_L_3",
+    "AB10_NOEXO_TH_L_4": "AB010_NOEXO_TH_L_4",
+    "AB10_NOEXO_TH_L_5": "AB010_NOEXO_TH_L_5",
+    "AB10_NOEXO_TH_R_1": "AB010_NOEXO_TH_R_1",
+    "AB10_NOEXO_TH_R_2": "AB010_NOEXO_TH_R_2",
+    "AB10_NOEXO_TH_R_3": "AB010_NOEXO_TH_R_3",
+    "AB10_NOEXO_TH_R_4": "AB010_NOEXO_TH_R_4",
+    "AB10_NOEXO_TH_R_5": "AB010_NOEXO_TH_R_5",
+    "AB10_EXO_TH_R_1": "AB010_EXO_TH_R_1",
+    "AB10_EXO_TH_R_2": "AB010_EXO_TH_R_2",
+    "AB10_EXO_TH_R_3": "AB010_EXO_TH_R_3",
+    "AB10_EXO_TH_R_4": "AB010_EXO_TH_R_4",
+    "AB10_EXO_TH_R_5": "AB010_EXO_TH_R_5"
+  },
+  "opencap_session_overrides": {},
+  "repaired_trials": [],
+  "insole_vertical_weight": 1.0,
+  "com_vertical_weight": 0.0,
+  "note": "AB10's raw insole export files are all named with an extra leading zero (AB010_... instead of AB10_...) -- insole_aliases maps every canonical SLJ trial name to its actual insole filename stem. Raw MOCAP c3d files use the correct AB10_ prefix (no alias needed there). force_scale_mode/force_scale now a fixed manual override -- see force_scale_note above; previously inherited default.json's auto-fit, which was wrong for this subject.",
+  "lh_manual_sync": {
+    "AB10_EXO_LH_R_1": {
+      "status": "synced",
+      "insole_click_s": 93.54,
+      "opencap_click_s": 5.2179,
+      "source": "state_machine_auto_sync"
     },
-    "opencap_session_overrides": {},
-    "repaired_trials": [],
-    "insole_vertical_weight": 1.0,
-    "com_vertical_weight": 0.0,
-    "note": "AB10's raw insole export files are all named with an extra leading zero (AB010_... instead of AB10_...) -- insole_aliases maps every canonical SLJ trial name to its actual insole filename stem. Raw MOCAP c3d files use the correct AB10_ prefix (no alias needed there). force_scale_mode/force_scale intentionally omitted here -- inherits default.json's real per-side auto-fit (body_weight_from_stable_side_force), not a placeholder."
+    "AB10_EXO_LH_R_2": {
+      "status": "synced",
+      "insole_click_s": 93.5,
+      "opencap_click_s": 5.2162,
+      "source": "state_machine_auto_sync"
+    },
+    "AB10_NOEXO_LH_L_1": {
+      "status": "synced",
+      "insole_click_s": 95.51,
+      "opencap_click_s": 5.1608,
+      "source": "state_machine_auto_sync"
+    },
+    "AB10_NOEXO_LH_L_2": {
+      "status": "synced",
+      "insole_click_s": 95.07,
+      "opencap_click_s": 3.8379,
+      "source": "state_machine_auto_sync"
+    },
+    "AB10_NOEXO_LH_R_1": {
+      "status": "synced",
+      "insole_click_s": 94.83,
+      "opencap_click_s": 5.9508,
+      "source": "state_machine_auto_sync"
+    },
+    "AB10_NOEXO_LH_R_2": {
+      "status": "synced",
+      "insole_click_s": 92.04,
+      "opencap_click_s": 2.9029,
+      "source": "state_machine_auto_sync"
+    }
+  },
+  "skh_manual_sync": {
+    "AB10_EXO_SKH_1": {
+      "status": "synced",
+      "insole_click_s": 92.59,
+      "opencap_click_s": 4.4483,
+      "source": "state_machine_auto_sync"
+    },
+    "AB10_EXO_SKH_2": {
+      "status": "synced",
+      "insole_click_s": 93.25,
+      "opencap_click_s": 5.235,
+      "source": "state_machine_auto_sync"
+    },
+    "AB10_NOEXO_SKH_1": {
+      "status": "synced",
+      "insole_click_s": 91.34,
+      "opencap_click_s": 2.3792,
+      "source": "state_machine_auto_sync"
+    },
+    "AB10_NOEXO_SKH_2": {
+      "status": "synced",
+      "insole_click_s": 95.66,
+      "opencap_click_s": 5.3067,
+      "source": "state_machine_auto_sync"
+    }
+  }
 }

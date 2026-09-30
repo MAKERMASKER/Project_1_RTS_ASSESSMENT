@@ -1,35 +1,122 @@
 {
-    "force_scale_mode": {
-        "L": "fixed",
-        "R": "fixed"
+  "force_scale_mode": {
+    "L": "fixed",
+    "R": "fixed"
+  },
+  "force_scale": {
+    "L": 0.9778136478053496,
+    "R": 1.0285301202068253
+  },
+  "force_scale_note": "2026-09-17: switched from the auto quality-gated stance detector (which only found a usable L-side window, 1 trial) to manually-selected stance windows per side, picked visually via code/expt_temp/Insole_vertical_force_calib_window/select_stance_windows.py (5 L-side / 7 R-side trials accepted -- see AB07_manual_stance_selections.csv/AB07_manual_calibration.json in that folder). Verified against real marker peak GRF: raw insole peaks were already near-perfect (-10 to +1%); this gain (near 1.0 on both sides) keeps them there (-8 to -1%), a genuine improvement/wash, not a regression like an earlier, since-superseded manual selection was.",
+  "exclude": [],
+  "use_last_flight_peak": [],
+  "landing_ordinal": {},
+  "opencap_aliases": {
+    "AB07_NOEXO_SLJ_L_1": "AB08_NOEXO_SLJ_L_1",
+    "AB07_NOEXO_SLJ_L_2": "AB08_NOEXO_SLJ_L_2",
+    "AB07_NOEXO_SLJ_L_3": "AB08_NOEXO_SLJ_L_3",
+    "AB07_NOEXO_SLJ_L_4": "AB08_NOEXO_SLJ_L_4",
+    "AB07_NOEXO_SLJ_L_5": "AB08_NOEXO_SLJ_L_5",
+    "AB07_NOEXO_SLJ_R_1": "AB08_NOEXO_SLJ_R_1",
+    "AB07_NOEXO_SLJ_R_2": "AB08_NOEXO_SLJ_R_2",
+    "AB07_NOEXO_SLJ_R_3": "AB08_NOEXO_SLJ_R_3",
+    "AB07_NOEXO_SLJ_R_4": "AB08_NOEXO_SLJ_R_4",
+    "AB07_NOEXO_SLJ_R_5": "AB08_NOEXO_SLJ_R_5",
+    "AB07_NOEXO_SKH_1": "AB08_NOEXO_SKH_1",
+    "AB07_NOEXO_SKH_3": "AB08_NOEXO_SKH_3",
+    "AB07_NOEXO_LH_L_1": "AB08_NOEXO_LH_L_1",
+    "AB07_NOEXO_LH_L_2": "AB08_NOEXO_LH_L_2",
+    "AB07_NOEXO_LH_R_1": "AB08_NOEXO_LH_R_1",
+    "AB07_NOEXO_LH_R_2": "AB08_NOEXO_LH_R_2",
+    "AB07_NOEXO_LH_R_3": "AB08_NOEXO_LH_R_3",
+    "AB07_NOEXO_TH_L_2": "AB08_NOEXO_TH_L_2",
+    "AB07_NOEXO_TH_L_3": "AB08_NOEXO_TH_L_3",
+    "AB07_NOEXO_TH_L_4": "AB08_NOEXO_TH_L_4",
+    "AB07_NOEXO_TH_L_5": "AB08_NOEXO_TH_L_5",
+    "AB07_NOEXO_TH_R_1": "AB08_NOEXO_TH_R_1",
+    "AB07_NOEXO_TH_R_2": "AB08_NOEXO_TH_R_2",
+    "AB07_NOEXO_TH_R_3": "AB08_NOEXO_TH_R_3",
+    "AB07_NOEXO_TH_R_4": "AB08_NOEXO_TH_R_4",
+    "AB07_NOEXO_TH_R_5": "AB08_NOEXO_TH_R_5",
+    "AB07_NOEXO_TH_R_6": "AB08_NOEXO_TH_R_6"
+  },
+  "insole_aliases": {
+    "AB07_EXO_SKH_1": "AB07_EXO_SKH_R_1",
+    "AB07_EXO_SKH_2": "AB07_EXO_SKH_R_2"
+  },
+  "opencap_session_overrides": {},
+  "repaired_trials": [],
+  "insole_vertical_weight": 1.0,
+  "com_vertical_weight": 0.0,
+  "note": "AB07 NOEXO OpenCap session (OpenCapData_25f76f3d-...) trial files are mislabeled with an AB08_... prefix instead of AB07_... -- confirmed genuinely AB07 data (sessionMetadata.yaml: subjectID=AB07, mass_kg=64.4, height_m=1.753, matching subject_metadata.csv exactly and NOT matching AB08 62.6kg/1.6256m). Operator typed the wrong subject ID as the trial-name prefix during capture; opencap_aliases maps every canonical NOEXO SLJ trial name to its actual (mislabeled) OpenCap filename. The EXO session does not have this issue.",
+  "model_note": "2026-09-21: AB07's EXO-condition scaled marker-based model (AB07_shoe_size_5_EXO_scaled.osim) has 52 markers instead of the study's usual 53 -- LFM5 (left 5th metatarsal) has NO column at all in AB07_EXO_static_markers_PROCESSED.trc (confirmed: not merely NaN, the marker was never recorded for this specific static capture). This is a genuine raw-data gap, independent of and unrelated to the LaiUhlrich2022+Biomech57 model correction (any ScaleTool run against this same TRC, old model or new, would hit the identical gap) -- not a code bug, nothing to fix here. Harmless in practice: IK only uses whatever markers a given trial's own TRC actually has, so this just means AB07's EXO trials get one fewer constraint on the left foot's IK solve, not a crash or a wrong result.",
+  "lh_manual_sync": {
+    "AB07_EXO_LH_R_1": {
+      "status": "synced",
+      "insole_click_s": 84.6,
+      "opencap_click_s": 2.3671,
+      "source": "manual_zoom_gui"
     },
-    "force_scale": {
-        "L": 0.9778136478053496,
-        "R": 1.0285301202068253
+    "AB07_EXO_LH_R_2": {
+      "status": "synced",
+      "insole_click_s": 86.01,
+      "opencap_click_s": 2.4195,
+      "source": "manual_zoom_gui"
     },
-    "force_scale_note": "2026-09-17: switched from the auto quality-gated stance detector (which only found a usable L-side window, 1 trial) to manually-selected stance windows per side, picked visually via code/expt_temp/Insole_vertical_force_calib_window/select_stance_windows.py (5 L-side / 7 R-side trials accepted -- see AB07_manual_stance_selections.csv/AB07_manual_calibration.json in that folder). Verified against real marker peak GRF: raw insole peaks were already near-perfect (-10 to +1%); this gain (near 1.0 on both sides) keeps them there (-8 to -1%), a genuine improvement/wash, not a regression like an earlier, since-superseded manual selection was.",
-    "exclude": [],
-    "use_last_flight_peak": [],
-    "landing_ordinal": {},
-    "opencap_aliases": {
-        "AB07_NOEXO_SLJ_L_1": "AB08_NOEXO_SLJ_L_1",
-        "AB07_NOEXO_SLJ_L_2": "AB08_NOEXO_SLJ_L_2",
-        "AB07_NOEXO_SLJ_L_3": "AB08_NOEXO_SLJ_L_3",
-        "AB07_NOEXO_SLJ_L_4": "AB08_NOEXO_SLJ_L_4",
-        "AB07_NOEXO_SLJ_L_5": "AB08_NOEXO_SLJ_L_5",
-        "AB07_NOEXO_SLJ_R_1": "AB08_NOEXO_SLJ_R_1",
-        "AB07_NOEXO_SLJ_R_2": "AB08_NOEXO_SLJ_R_2",
-        "AB07_NOEXO_SLJ_R_3": "AB08_NOEXO_SLJ_R_3",
-        "AB07_NOEXO_SLJ_R_4": "AB08_NOEXO_SLJ_R_4",
-        "AB07_NOEXO_SLJ_R_5": "AB08_NOEXO_SLJ_R_5"
+    "AB07_NOEXO_LH_L_1": {
+      "status": "synced",
+      "insole_click_s": 82.02,
+      "opencap_click_s": 2.729,
+      "source": "manual_zoom_gui"
     },
-    "insole_aliases": {
-        "AB07_EXO_SKH_1": "AB07_EXO_SKH_R_1",
-        "AB07_EXO_SKH_2": "AB07_EXO_SKH_R_2"
+    "AB07_NOEXO_LH_L_2": {
+      "status": "synced",
+      "insole_click_s": 84.53,
+      "opencap_click_s": 1.9129,
+      "source": "state_machine_auto_sync"
     },
-    "opencap_session_overrides": {},
-    "repaired_trials": [],
-    "insole_vertical_weight": 1.0,
-    "com_vertical_weight": 0.0,
-    "note": "AB07 NOEXO OpenCap session (OpenCapData_25f76f3d-...) trial files are mislabeled with an AB08_... prefix instead of AB07_... -- confirmed genuinely AB07 data (sessionMetadata.yaml: subjectID=AB07, mass_kg=64.4, height_m=1.753, matching subject_metadata.csv exactly and NOT matching AB08 62.6kg/1.6256m). Operator typed the wrong subject ID as the trial-name prefix during capture; opencap_aliases maps every canonical NOEXO SLJ trial name to its actual (mislabeled) OpenCap filename. The EXO session does not have this issue."
+    "AB07_NOEXO_LH_R_1": {
+      "status": "rejected",
+      "source": "user_reflagged_after_review",
+      "note": "Synced in the zoom GUI (r=0.800, weakest of 57) but user chose to omit."
+    },
+    "AB07_NOEXO_LH_R_2": {
+      "status": "synced",
+      "insole_click_s": 85.21,
+      "opencap_click_s": 3.0617,
+      "source": "state_machine_auto_sync"
+    },
+    "AB07_NOEXO_LH_R_3": {
+      "status": "synced",
+      "insole_click_s": 83.95,
+      "opencap_click_s": 1.7746,
+      "source": "state_machine_auto_sync"
+    }
+  },
+  "skh_manual_sync": {
+    "AB07_EXO_SKH_1": {
+      "status": "synced",
+      "insole_click_s": 84.26,
+      "opencap_click_s": 3.1387,
+      "source": "state_machine_auto_sync"
+    },
+    "AB07_EXO_SKH_2": {
+      "status": "synced",
+      "insole_click_s": 82.53,
+      "opencap_click_s": 2.5292,
+      "source": "state_machine_auto_sync"
+    },
+    "AB07_NOEXO_SKH_1": {
+      "status": "synced",
+      "insole_click_s": 86.04,
+      "opencap_click_s": 5.3079,
+      "source": "state_machine_auto_sync"
+    },
+    "AB07_NOEXO_SKH_3": {
+      "status": "synced",
+      "insole_click_s": 85.3,
+      "opencap_click_s": 2.6417,
+      "source": "state_machine_auto_sync"
+    }
+  }
 }

@@ -1,23 +1,99 @@
 {
-    "force_scale_mode": {"L": "fixed", "R": "fixed"},
-    "force_scale": {"L": 0.6165315935773875, "R": 0.650950250430452},
-    "force_scale_note": "2026-09-17: switched from the auto quality-gated stance detector (which found no qualifying window for either side -- AB08's only near-miss, NOEXO_SLJ_R_8, was correctly rejected as implausible at 1.62x body weight) to manually-selected stance windows per side, picked visually via code/expt_temp/Insole_vertical_force_calib_window/select_stance_windows.py (4 trials/side accepted, consistently 1.4-1.7x body weight across independent trials -- a real, repeatable hardware bias, not noise -- see AB08_manual_stance_selections.csv/AB08_manual_calibration.json in that folder). Verified against real marker peak GRF: raw insole over-read landing peaks by 40-60%; this gain brings it to -1 to -9% -- the clearest win of any subject.",
-    "exclude": ["AB08_EXO_SLJ_R_4", "AB08_NOEXO_SLJ_R_1", "AB08_NOEXO_SLJ_R_3"],
-    "use_last_flight_peak": [],
-    "landing_ordinal": {},
-    "opencap_aliases": {
-        "AB08_NOEXO_TH_R_5": "AB08_NOEXO_TH_R_4_1",
-        "AB08_EXO_SKH_2": "AB08_EXO_SKH_1_1"
+  "force_scale_mode": {
+    "L": "fixed",
+    "R": "fixed"
+  },
+  "force_scale": {
+    "L": 0.6165315935773875,
+    "R": 0.650950250430452
+  },
+  "force_scale_note": "2026-09-17: switched from the auto quality-gated stance detector (which found no qualifying window for either side -- AB08's only near-miss, NOEXO_SLJ_R_8, was correctly rejected as implausible at 1.62x body weight) to manually-selected stance windows per side, picked visually via code/expt_temp/Insole_vertical_force_calib_window/select_stance_windows.py (4 trials/side accepted, consistently 1.4-1.7x body weight across independent trials -- a real, repeatable hardware bias, not noise -- see AB08_manual_stance_selections.csv/AB08_manual_calibration.json in that folder). Verified against real marker peak GRF: raw insole over-read landing peaks by 40-60%; this gain brings it to -1 to -9% -- the clearest win of any subject.",
+  "exclude": [
+    "AB08_EXO_SLJ_R_4",
+    "AB08_NOEXO_SLJ_R_1",
+    "AB08_NOEXO_SLJ_R_3"
+  ],
+  "use_last_flight_peak": [],
+  "landing_ordinal": {},
+  "opencap_aliases": {
+    "AB08_NOEXO_TH_R_5": "AB08_NOEXO_TH_R_4_1",
+    "AB08_EXO_SKH_2": "AB08_EXO_SKH_1_1"
+  },
+  "insole_aliases": {},
+  "opencap_session_overrides": {
+    "AB08_NOEXO_TH_R_1": "OpenCapData_b3e1ba59-604c-4d22-af2d-579ced1c0c58"
+  },
+  "repaired_trials": [],
+  "insole_vertical_weight": 1.0,
+  "com_vertical_weight": 0.0,
+  "rotation_force_activities": [
+    "single_leg_jump"
+  ],
+  "rotation_force_weight_x": 0.5,
+  "rotation_force_weight_z": 0.5,
+  "rotation_force_note": "Matches the tuned value in the upstream PILOT_OOP_BASE_PY repo for AB08 -- blends the translational horizontal-GRF estimate 50/50 with the angular-momentum-rate (H-dot) moment-balance estimate. See framework_processor.py's module docstring.",
+  "lh_manual_sync": {
+    "AB08_EXO_LH_R_1": {
+      "status": "synced",
+      "insole_click_s": 60.22,
+      "opencap_click_s": 3.6262,
+      "source": "manual_zoom_gui"
     },
-    "insole_aliases": {},
-    "opencap_session_overrides": {
-        "AB08_NOEXO_TH_R_1": "OpenCapData_b3e1ba59-604c-4d22-af2d-579ced1c0c58"
+    "AB08_EXO_LH_R_2": {
+      "status": "synced",
+      "insole_click_s": 59.68,
+      "opencap_click_s": 3.0745,
+      "source": "manual_zoom_gui"
     },
-    "repaired_trials": [],
-    "insole_vertical_weight": 1.0,
-    "com_vertical_weight": 0.0,
-    "rotation_force_activities": ["single_leg_jump"],
-    "rotation_force_weight_x": 0.5,
-    "rotation_force_weight_z": 0.5,
-    "rotation_force_note": "Matches the tuned value in the upstream PILOT_OOP_BASE_PY repo for AB08 -- blends the translational horizontal-GRF estimate 50/50 with the angular-momentum-rate (H-dot) moment-balance estimate. See framework_processor.py's module docstring."
+    "AB08_NOEXO_LH_L_1": {
+      "status": "synced",
+      "insole_click_s": 59.4,
+      "opencap_click_s": 2.9631,
+      "source": "manual_zoom_gui"
+    },
+    "AB08_NOEXO_LH_L_2": {
+      "status": "synced",
+      "insole_click_s": 59.72,
+      "opencap_click_s": 2.9583,
+      "source": "state_machine_auto_sync"
+    },
+    "AB08_NOEXO_LH_R_1": {
+      "status": "synced",
+      "insole_click_s": 60.25,
+      "opencap_click_s": 3.9679,
+      "source": "state_machine_auto_sync"
+    },
+    "AB08_NOEXO_LH_R_2": {
+      "status": "synced",
+      "insole_click_s": 60.48,
+      "opencap_click_s": 4.1043,
+      "source": "manual_zoom_gui"
+    }
+  },
+  "skh_manual_sync": {
+    "AB08_EXO_SKH_1": {
+      "status": "synced",
+      "insole_click_s": 59.94,
+      "opencap_click_s": 3.2846,
+      "source": "state_machine_auto_sync"
+    },
+    "AB08_EXO_SKH_2": {
+      "status": "synced",
+      "insole_click_s": 61.4,
+      "opencap_click_s": 4.9458,
+      "source": "state_machine_auto_sync"
+    },
+    "AB08_NOEXO_SKH_1": {
+      "status": "synced",
+      "insole_click_s": 61.72,
+      "opencap_click_s": 5.565,
+      "source": "state_machine_auto_sync"
+    },
+    "AB08_NOEXO_SKH_2": {
+      "status": "synced",
+      "insole_click_s": 58.7,
+      "opencap_click_s": 2.57,
+      "source": "state_machine_auto_sync"
+    }
+  }
 }

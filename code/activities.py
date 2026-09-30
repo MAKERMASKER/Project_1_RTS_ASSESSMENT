@@ -20,6 +20,13 @@ import io_tables
 from config import DEFAULT
 from insole_geometry import InsoleGeometry
 
+# How far apart the two independent sync-anchor shift estimates (liftoff vs.
+# landing) are allowed to be before a trial's sync is flagged low-confidence
+# (quality_omit=True) rather than trusted outright. Shared by SkaterHop and
+# LateralHop's two-anchor-point sync -- both use the same liftoff/landing
+# cross-check idea, just with different anchor sides.
+SYNC_CONSISTENCY_TOLERANCE_S = 0.2
+
 
 def moving_mean(values, width):
     return np.convolve(np.asarray(values, dtype=float), np.ones(width) / width, mode="same")
@@ -47,6 +54,32 @@ def foot_landings(height, high, low, minimum_samples=8):
         else:
             below_count = 0
     return landings
+
+
+def foot_liftoffs_and_landings(height, high, low, minimum_samples=8):
+    """Same scan as foot_landings(), but returns (liftoff_index,
+    landing_index) pairs -- liftoff is simply the index where `in_flight`
+    first becomes True, which foot_landings() already computes internally
+    but discards. Used by activities whose sync needs both events (SkaterHop,
+    LateralHop); foot_landings() is left untouched since SingleLegJump only
+    ever needed the landing half."""
+    pairs = []
+    in_flight = False
+    below_count = 0
+    liftoff_index = None
+    for index, value in enumerate(height):
+        if not in_flight and value >= high:
+            in_flight = True
+            below_count = 0
+            liftoff_index = index
+        elif in_flight and value <= low:
+            below_count += 1
+            if below_count == minimum_samples:
+                pairs.append((liftoff_index, index - minimum_samples + 1))
+                in_flight = False
+        else:
+            below_count = 0
+    return pairs
 
 
 class Activity(ABC):
@@ -136,7 +169,7 @@ class Activity(ABC):
         self, trial, trc, ik_all, insole_all, open_event, insole_event,
         peak_index, method, open_landing_index=0, quality_omit=False,
         contact_only=False, discard_start_seconds=0.0, max_duration_seconds=None,
-        peak_window_seconds=None,
+        peak_window_seconds=None, sync_side=None,
     ):
         shift = float(open_event - insole_event)
         shifted = insole_all.time.to_numpy(float) + shift
@@ -177,6 +210,12 @@ class Activity(ABC):
                 "quality_omit": quality_omit,
                 "open_landing_index": open_landing_index,
                 "method": method,
+                # Which side's foot-height trace is meaningful for
+                # _plot_sync()'s diagnostic -- None (the default) means
+                # "use trial.side", unchanged for every existing activity.
+                # SkaterHop's trial.side is None (bilateral), so it passes
+                # its own fixed sync-anchor side ("R") here explicitly.
+                "sync_side": sync_side if sync_side is not None else trial.side,
             },
         )
 
@@ -299,16 +338,18 @@ class SkaterHop(Activity):
     representative side via the subject's exo_leg metadata; that's been
     removed as factually wrong for an alternating-leg movement.)
 
-    Framework/insole-calibration integration is NOT implemented here
-    (synchronize() raises) -- unlike Walk, real OpenCap markerless
-    coverage already exists for at least AB08's SKH sessions (see
-    subject_rules/AB08.json's opencap_aliases), so this is near-term
-    future work, not speculative. Whenever it's built: FrameworkProcessor
-    currently reads a single trial.side unconditionally in a few places
-    (picking which side's force/cop/contact to keep) -- that logic needs
-    per-landing side detection across the trial's alternating stance
-    events, not a single trial-wide side, or it will silently misattribute
-    every landing to one foot.
+    Framework processing syncs on the right foot's first liftoff/landing
+    pair (see synchronize()) -- per the study protocol every SKH trial
+    follows the same fixed sequence: right foot lifts off, left foot
+    initiates the hop, right foot lands first. Only this FIRST hop cycle
+    is analyzed (the two anchor points bound it), the same
+    one-canonical-event-per-trial convention SingleLegJump already uses
+    for its own landing. FrameworkProcessor.process() defaults its
+    "selected_*" trial_data.npz fields to the right foot for this
+    activity (see _selected_force() below and framework_processor.py's
+    sync_side handling) -- NOT a genuine unilateral selection, just the
+    fixed sync-anchor side; treat those fields as informational only for
+    SKH, not as SLJ-style unilateral outcomes.
     """
 
     name = "skater_hop"
@@ -316,20 +357,116 @@ class SkaterHop(Activity):
     token = "SKH"
     has_side_token = False
     unilateral_framework = False
-    framework_interval = "not yet defined -- needs per-landing side detection, not a single trial.side"
+    framework_interval = "first hop cycle only: right-foot liftoff to shortly after right-foot landing"
     functional_outcomes = ()
 
     def marker_plates(self, trial):
         return ([3, 1], [6, 5])
 
+    def _selected_force(self, trial, insole):
+        # Bilateral activity, no single selected side for the whole trial --
+        # defaults to the right foot, the same fixed side synchronize()
+        # anchors on (sync_side="R"). NOT a genuine unilateral selection;
+        # see the class docstring's framework_processor.py note.
+        return insole["right_force"].to_numpy(float)
+
     def synchronize(self, trial, trc, ik_all, insole_all, rules):
-        raise NotImplementedError(
-            "SkaterHop.synchronize() is not implemented -- marker-based "
-            "processing (c3d convert -> force-plate combine -> scale/IK/ID) "
-            "does not call this method and works today via MarkerProcessor. "
-            "Framework integration needs per-landing (not per-trial) side "
-            "detection across the alternating R/L stance events before this "
-            "can be implemented -- see the class docstring."
+        """Sync on the right foot's first liftoff/landing pair -- per the
+        study protocol, every SKH trial starts the same way regardless of
+        subject: right foot lifts off, left foot initiates the hop, right
+        foot lands first. Two independent anchor points (liftoff, landing)
+        give two independent shift estimates that should agree; landing is
+        used as the final shift (sharper transient, same reasoning
+        SingleLegJump already applies to its own landing peak).
+
+        MANUAL OVERRIDE (checked first): this automatic method turned out
+        unreliable once run across all 6 subjects -- only 6/22 trials
+        (27%) passed the liftoff/landing cross-check, the rest flagged
+        quality_omit=True. Same fix and mechanism as LateralHop: the user
+        syncs by eye instead (code/expt_temp/skh_manual_sync
+        /select_skh_sync.py), one CSV per subject, promoted into each
+        subject_rules/<ID>.json's "skh_manual_sync" dict (trial name ->
+        {"status": "synced"/"rejected", "opencap_click_s",
+        "insole_click_s"}) by promote_skh_manual_sync.py. A trial present
+        there always wins over the automatic method below; a trial absent
+        from it falls through to the automatic method unchanged."""
+        manual = rules.get("skh_manual_sync", {}).get(trial.name)
+        if manual is not None:
+            if manual["status"] == "rejected":
+                raise ValueError(
+                    f"Skater hop trial {trial.name} was manually rejected via the "
+                    f"skh_manual_sync GUI (no usable sync -- see subject_rules exclude list)"
+                )
+            return self._manual_sync(trial, trc, ik_all, insole_all, manual)
+
+        force = moving_mean(self._selected_force(trial, insole_all), 7)
+        height = moving_mean(InsoleGeometry.foot_height(trc, "R"), 9)
+        baseline = baseline_height(height)
+
+        pairs = foot_liftoffs_and_landings(height, baseline + 0.03, baseline + 0.02)
+        if not pairs:
+            raise ValueError(f"Skater hop right-foot liftoff/landing was not found for {trial.name}")
+        marker_liftoff_index, marker_landing_index = pairs[0]
+        marker_liftoff_time = trc["time"][marker_liftoff_index]
+        marker_landing_time = trc["time"][marker_landing_index]
+
+        contacts = self._force_contacts(force)
+        if len(contacts) < 2:
+            raise ValueError(f"Skater hop right-foot liftoff/landing contact was not found for {trial.name}")
+        insole_liftoff_index = contacts[0, 1]
+        insole_landing_start, insole_landing_end = contacts[1]
+        insole_landing_peak = insole_landing_start + int(
+            np.argmax(force[insole_landing_start:insole_landing_end + 1])
+        )
+        insole_liftoff_time = insole_all.time.iloc[insole_liftoff_index]
+        insole_landing_time = insole_all.time.iloc[insole_landing_start]
+
+        shift_liftoff = float(marker_liftoff_time - insole_liftoff_time)
+        shift_landing = float(marker_landing_time - insole_landing_time)
+        quality_omit = abs(shift_liftoff - shift_landing) > SYNC_CONSISTENCY_TOLERANCE_S
+
+        peak_time = float(insole_all.time.iloc[insole_landing_peak]) + shift_landing
+        return self._finish_sync(
+            trial, trc, ik_all, insole_all,
+            marker_landing_time, insole_landing_time, insole_landing_peak,
+            "skater_hop_right_foot_liftoff_landing", marker_liftoff_index,
+            quality_omit=quality_omit,
+            peak_window_seconds=(float(marker_liftoff_time) - peak_time, 0.3),
+            sync_side="R",
+        )
+
+    # Fallback pre-landing analysis window for the manual sync path (no
+    # liftoff anchor available there, unlike the automatic method's own
+    # marker_liftoff_time) -- same value/reasoning as LateralHop's
+    # DEFAULT_PRE_LANDING_WINDOW_S.
+    DEFAULT_PRE_LANDING_WINDOW_S = 1.0
+
+    def _manual_sync(self, trial, trc, ik_all, insole_all, manual):
+        """Use a human-clicked (opencap_time, insole_time) pair -- recorded
+        by select_skh_sync.py, promoted into subject_rules -- as the sync
+        anchor directly, instead of the automatic liftoff/landing detection
+        above. Same approach as LateralHop._manual_sync(): refine
+        peak_index to the actual local right-foot force peak near the
+        click, rather than trusting the click sample itself."""
+        force = moving_mean(self._selected_force(trial, insole_all), 7)
+        insole_time = insole_all.time.to_numpy(float)
+        dt = float(np.median(np.diff(insole_time)))
+
+        insole_click_time = float(manual["insole_click_s"])
+        opencap_click_time = float(manual["opencap_click_s"])
+        click_index = int(np.argmin(np.abs(insole_time - insole_click_time)))
+        window = max(1, int(round(0.5 / dt)))
+        lo, hi = max(0, click_index - window), min(len(force), click_index + window + 1)
+        peak_index = lo + int(np.argmax(force[lo:hi]))
+
+        return self._finish_sync(
+            trial, trc, ik_all, insole_all,
+            opencap_click_time, insole_click_time, peak_index,
+            "skater_hop_manual_gui_sync",
+            click_index,
+            quality_omit=False,
+            peak_window_seconds=(-self.DEFAULT_PRE_LANDING_WINDOW_S, 0.3),
+            sync_side="R",
         )
 
 
@@ -348,17 +485,19 @@ class LateralHop(Activity):
     threshold -- verify it against real LH plate-contact durations rather
     than trusting it blindly (see this session's verification notes).
 
-    Framework/insole-calibration integration is NOT implemented here
-    (synchronize() raises) -- AB08/NOEXO already has real OpenCap coverage
-    for lateral_hop too (subject_rules-adjacent opencap_sessions.csv), so
-    this is near-term future work, not speculative.
+    Framework processing syncs on two anchor points (see synchronize()):
+    the OPPOSITE (non-hopping) foot's liftoff -- marking the end of the
+    initial double-support hold -- paired with the ACTIVE (trial.side)
+    foot's own first landing after that. Only this first single-support
+    landing is analyzed, the same one-canonical-event convention SKH/SLJ
+    use.
     """
 
     name = "lateral_hop"
     title = "Lateral hop (single-leg side-to-side)"
     token = "LH"
     unilateral_framework = True
-    framework_interval = "not yet defined -- framework/insole-calibration integration not implemented"
+    framework_interval = "opposite-foot liftoff through the active foot's first landing"
     functional_outcomes = ()
 
     # Verified against real data across AB03/AB05/AB08/AB10's LH trials:
@@ -386,12 +525,310 @@ class LateralHop(Activity):
             masks[plate] = mask
         return masks
 
+    # A genuine hop landing (not a longer double-support hold) -- same
+    # lower bound style as the upper MAX_SINGLE_SUPPORT_DURATION_S already
+    # validated for marker-based contact_masks(); real hop contacts run
+    # ~0.25-1.3s, so 0.15s comfortably excludes noise spikes without
+    # excluding any genuine hop.
+    MIN_HOP_DURATION_S = 0.15
+    # Fallback pre-landing window when no opposite-foot cross-check anchor
+    # is found at all (see synchronize()) -- generous enough to include a
+    # typical double-support lead-in without depending on it being found.
+    DEFAULT_PRE_LANDING_WINDOW_S = 1.0
+
     def synchronize(self, trial, trc, ik_all, insole_all, rules):
-        raise NotImplementedError(
-            "LateralHop.synchronize() is not implemented -- marker-based "
-            "processing (c3d convert -> force-plate combine -> scale/IK/ID) "
-            "does not call this method and works today via MarkerProcessor. "
-            "Framework/insole-calibration integration is deferred future work."
+        """PRIMARY anchor: the ACTIVE (trial.side) foot's own first genuine
+        hop landing -- the same reliable, clean-touchdown detection
+        SkaterHop already uses successfully, reusing the duration-based
+        "genuine hop vs. long non-hop hold" signature already validated for
+        marker-based contact_masks() (MIN_HOP_DURATION_S/
+        MAX_SINGLE_SUPPORT_DURATION_S) so the insole side doesn't pick up
+        an unrelated contact from elsewhere in what's typically a much
+        longer raw insole recording than the trial itself.
+
+        SECONDARY, cross-check-only anchor: the OPPOSITE (non-hopping)
+        foot's liftoff, i.e. the end of the initial double-support hold,
+        per the user's original description. This foot's own marker
+        height is NOT a single clean liftoff-then-idle signal in practice
+        (confirmed against real data: it swings substantially throughout
+        the hop bout for balance, producing several height-threshold
+        crossings, not one) -- so rather than trust "the first crossing"
+        blindly, the primary anchor's own (approximate) shift is used to
+        project the insole-side opposite-foot liftoff (itself restricted
+        to the contact immediately preceding the active foot's first hop,
+        not a blind whole-recording scan) onto the marker clock, and pick
+        whichever of the opposite foot's several candidate liftoffs is
+        closest to that projection. If no such candidate is found at all,
+        processing still proceeds on the primary anchor alone, flagged
+        quality_omit=True rather than raising -- a missing cross-check is
+        a real, honest confidence signal, not a fatal error.
+
+        MANUAL OVERRIDE (checked first): this automatic method was found
+        unreliable against real data (checked against AB08's manually
+        synced trials -- 2 of 4 disagreed with the automatic primary
+        anchor by 1.7-3.7s, the other 2 agreed within ~0.05s), so the user
+        synced every LH trial by eye instead (code/expt_temp/lh_manual_sync
+        /select_lh_sync.py), one CSV per subject, promoted into each
+        subject_rules/<ID>.json's "lh_manual_sync" dict (trial name ->
+        {"status": "synced"/"rejected", "opencap_click_s",
+        "insole_click_s"}) by promote_lh_manual_sync.py. A trial present
+        there always wins over the automatic method below; a trial absent
+        from it (e.g. a subject with no manual sync done yet, like NTS01)
+        falls through to the automatic method unchanged."""
+        manual = rules.get("lh_manual_sync", {}).get(trial.name)
+        if manual is not None:
+            if manual["status"] == "rejected":
+                raise ValueError(
+                    f"Lateral hop trial {trial.name} was manually rejected via the "
+                    f"lh_manual_sync GUI (no usable sync -- see subject_rules exclude list)"
+                )
+            return self._manual_sync(trial, trc, ik_all, insole_all, manual)
+
+        own_side = trial.side
+        opposite_side = "L" if own_side == "R" else "R"
+        own_column = "right_force" if own_side == "R" else "left_force"
+        opposite_column = "right_force" if opposite_side == "R" else "left_force"
+        dt = float(np.median(np.diff(insole_all.time)))
+
+        own_force = moving_mean(insole_all[own_column].to_numpy(float), 7)
+        own_contacts = self._force_contacts(own_force)
+        if len(own_contacts):
+            duration = (own_contacts[:, 1] - own_contacts[:, 0] + 1) * dt
+            hop_contacts = own_contacts[
+                (duration >= self.MIN_HOP_DURATION_S) & (duration <= self.MAX_SINGLE_SUPPORT_DURATION_S)
+            ]
+        else:
+            hop_contacts = own_contacts
+        if not len(hop_contacts):
+            raise ValueError(f"Lateral hop active-foot first genuine hop landing was not found for {trial.name}")
+        insole_landing_start, insole_landing_end = hop_contacts[0]
+        insole_landing_peak = insole_landing_start + int(
+            np.argmax(own_force[insole_landing_start:insole_landing_end + 1])
+        )
+        insole_landing_time = insole_all.time.iloc[insole_landing_start]
+
+        own_height = moving_mean(InsoleGeometry.foot_height(trc, own_side), 9)
+        own_baseline = baseline_height(own_height)
+        own_pairs = foot_liftoffs_and_landings(own_height, own_baseline + 0.03, own_baseline + 0.02)
+        if not own_pairs:
+            raise ValueError(f"Lateral hop active-foot marker landing was not found for {trial.name}")
+        marker_landing_index = own_pairs[0][1]
+        marker_landing_time = trc["time"][marker_landing_index]
+        shift_landing = float(marker_landing_time - insole_landing_time)
+
+        # Secondary cross-check: restrict the insole search to the
+        # opposite foot's own contact immediately preceding the active
+        # foot's first hop (not the whole, much longer raw recording).
+        opposite_force = moving_mean(insole_all[opposite_column].to_numpy(float), 7)
+        opposite_contacts = self._force_contacts(opposite_force)
+        quality_omit = True
+        marker_opposite_liftoff_index = marker_landing_index
+        window_start_offset = -self.DEFAULT_PRE_LANDING_WINDOW_S
+        if len(opposite_contacts):
+            preceding = opposite_contacts[opposite_contacts[:, 1] <= insole_landing_start]
+            if len(preceding):
+                insole_opposite_liftoff_index = preceding[-1, 1]
+                insole_opposite_liftoff_time = insole_all.time.iloc[insole_opposite_liftoff_index]
+                projected_marker_time = insole_opposite_liftoff_time + shift_landing
+
+                opposite_height = moving_mean(InsoleGeometry.foot_height(trc, opposite_side), 9)
+                opposite_baseline = baseline_height(opposite_height)
+                opposite_pairs = foot_liftoffs_and_landings(
+                    opposite_height, opposite_baseline + 0.03, opposite_baseline + 0.02
+                )
+                if opposite_pairs:
+                    liftoff_times = np.array([trc["time"][liftoff] for liftoff, _ in opposite_pairs])
+                    closest = int(np.argmin(np.abs(liftoff_times - projected_marker_time)))
+                    marker_opposite_liftoff_index = opposite_pairs[closest][0]
+                    marker_opposite_liftoff_time = liftoff_times[closest]
+                    shift_liftoff = float(marker_opposite_liftoff_time - insole_opposite_liftoff_time)
+                    quality_omit = abs(shift_liftoff - shift_landing) > SYNC_CONSISTENCY_TOLERANCE_S
+
+        peak_time = float(insole_all.time.iloc[insole_landing_peak]) + shift_landing
+        if marker_opposite_liftoff_index != marker_landing_index:
+            window_start_offset = trc["time"][marker_opposite_liftoff_index] - peak_time
+        return self._finish_sync(
+            trial, trc, ik_all, insole_all,
+            marker_landing_time, insole_landing_time, insole_landing_peak,
+            "lateral_hop_active_first_hop_with_opposite_liftoff_crosscheck",
+            marker_opposite_liftoff_index,
+            quality_omit=quality_omit,
+            peak_window_seconds=(window_start_offset, 0.3),
+            sync_side=own_side,
+        )
+
+    def _manual_sync(self, trial, trc, ik_all, insole_all, manual):
+        """Use a human-clicked (opencap_time, insole_time) pair -- recorded
+        by select_lh_sync.py, promoted into subject_rules -- as the sync
+        anchor directly, instead of the automatic detection above. The
+        click only marks approximately where the shared landing event is;
+        refine peak_index to the actual local force peak of the active
+        foot's own column within a small window around the click, so
+        peak_grf_time_s/the analysis window still center on the real
+        force peak rather than the (slightly off) manual click sample."""
+        own_side = trial.side
+        own_column = "right_force" if own_side == "R" else "left_force"
+        own_force = moving_mean(insole_all[own_column].to_numpy(float), 7)
+        insole_time = insole_all.time.to_numpy(float)
+        dt = float(np.median(np.diff(insole_time)))
+
+        insole_click_time = float(manual["insole_click_s"])
+        opencap_click_time = float(manual["opencap_click_s"])
+        click_index = int(np.argmin(np.abs(insole_time - insole_click_time)))
+        window = max(1, int(round(0.5 / dt)))
+        lo, hi = max(0, click_index - window), min(len(own_force), click_index + window + 1)
+        peak_index = lo + int(np.argmax(own_force[lo:hi]))
+
+        return self._finish_sync(
+            trial, trc, ik_all, insole_all,
+            opencap_click_time, insole_click_time, peak_index,
+            "lateral_hop_manual_gui_sync",
+            click_index,
+            quality_omit=False,
+            peak_window_seconds=(-self.DEFAULT_PRE_LANDING_WINDOW_S, 0.3),
+            sync_side=own_side,
+        )
+
+
+class TripleHop(Activity):
+    """Three consecutive hops for distance, one committed side per trial
+    (like SingleLegJump/LateralHop) -- the athlete travels across the mat
+    over the course of the three hops, so unlike SLJ/SKH/LH's fixed
+    plate(s), ALL 6 plates belong to whichever side the trial commits to;
+    which specific plate(s) are loaded at any instant just depends on where
+    in the three-hop sequence the subject currently is. Per the user's
+    explicit instruction: standard weighted-resultant + COP combining
+    (ForcePlateProcessor._resultant(), unchanged, activity-agnostic) already
+    handles a foot briefly spanning two plates at once (a hop landing near
+    a plate boundary) -- no new combining logic, no contact_masks()
+    override, same as SingleLegJump.
+
+    Framework sync (see synchronize()) is based on SingleLegJump's own
+    landing-pair technique, extended per the user's explicit instruction:
+    robustness comes from pairing insole landings against foot-marker
+    drops across the FIRST THREE hops, not just one."""
+
+    name = "triple_hop"
+    title = "Triple hop (three consecutive hops for distance)"
+    token = "TH"
+    unilateral_framework = True
+    framework_interval = "first three hops: from before the first landing to shortly after the third landing peak"
+    # Not "distance" yet -- outcomes() isn't overridden (still the base
+    # Activity's (NaN, 0)), so only claim what's actually computed today.
+    functional_outcomes = ("GRF", "COP", "joint moments")
+
+    # Genuine-hop floor, same reasoning/units as SingleLegJump's own inline
+    # 0.10s contact-duration filter and LateralHop/SkaterHop's
+    # MIN_HOP_DURATION_S -- excludes noise spikes, not real hop contacts
+    # (all of which run well above this in every activity checked so far).
+    MIN_HOP_DURATION_S = 0.10
+
+    def marker_plates(self, trial):
+        return ([1, 2, 3, 4, 5, 6], []) if trial.side == "R" else ([], [1, 2, 3, 4, 5, 6])
+
+    def synchronize(self, trial, trc, ik_all, insole_all, rules):
+        """SingleLegJump's own technique (pair a marker landing -- foot
+        height dropping back to the ground -- with the insole force
+        contact that starts at the same moment), applied to the FIRST
+        THREE hops instead of just one, per the user's explicit
+        instruction: "based on first three hops not just one to make it
+        robust". Each of the (up to) 3 hops gives its own independent
+        shift estimate; the final shift is their median (robust against
+        any single hop's noisy detection), and the spread across hops is
+        an honest confidence signal -- quality_omit=True whenever fewer
+        than 3 hops were found or the 3 estimates disagree by more than
+        SYNC_CONSISTENCY_TOLERANCE_S, never silently trusted.
+
+        Picking WHICH 3 insole contacts are the 3 hops is not simply "the
+        first 3 chronologically": real triple-hop recordings include a
+        long static double-support hold before the athlete starts (and
+        sometimes after) -- confirmed against real data (AB08's own first
+        contact ran 5.27s, versus 0.4s/0.42s/2.37s for the 3 genuine hops,
+        the last one a longer stabilizing final landing by design, not
+        noise -- a fixed duration threshold can't cleanly separate these,
+        durations overlap too much across subjects/trials). What's
+        reliable instead is relative TIMING: the marker signal's own gaps
+        between its (up to 3) landings are the ground truth for how far
+        apart the real hops are, and the correct group of insole contacts
+        must reproduce that same spacing (same physical event, same real-
+        world clock rate) -- so every group of len(hop_pairs) CONSECUTIVE
+        insole contacts is scored by how closely its own inter-contact
+        gaps match the marker's gaps, and the best-matching group wins.
+        With fewer than 2 marker landings there's no gap to match at all;
+        falls back to the first available contact(s), correctly flagged
+        low-confidence via quality_omit.
+
+        The reported window spans the whole 3-hop bout: from
+        config.jump_window_s[0] (the same lead-in buffer SLJ uses before
+        its single landing) before the FIRST hop's landing, through
+        config.jump_window_s[1] after the THIRD hop's landing peak --
+        not a single-event ±window like SLJ, since all three hops need
+        to be analyzed."""
+        own_side = trial.side
+        force = moving_mean(self._selected_force(trial, insole_all), 7)
+        height = moving_mean(InsoleGeometry.foot_height(trc, own_side), 9)
+        baseline = baseline_height(height)
+
+        marker_pairs = foot_liftoffs_and_landings(height, baseline + 0.03, baseline + 0.02)
+        if not marker_pairs:
+            raise ValueError(f"Triple hop marker landing was not found for {trial.name}")
+        hop_pairs = marker_pairs[:3]
+
+        contacts = self._force_contacts(force)
+        if len(contacts):
+            dt = float(np.median(np.diff(insole_all.time)))
+            duration = (contacts[:, 1] - contacts[:, 0] + 1) * dt
+            contacts = contacts[duration >= self.MIN_HOP_DURATION_S]
+        if not len(contacts):
+            raise ValueError(f"Triple hop insole contact was not found for {trial.name}")
+
+        window_size = min(len(hop_pairs), len(contacts))
+        if window_size >= 2:
+            marker_times = np.array([float(trc["time"][landing]) for _, landing in hop_pairs[:window_size]])
+            marker_gaps = np.diff(marker_times)
+            best_score, hop_contacts = None, contacts[:window_size]
+            for start in range(len(contacts) - window_size + 1):
+                window = contacts[start:start + window_size]
+                insole_gaps = np.diff(insole_all.time.iloc[window[:, 0]].to_numpy(float))
+                score = float(np.sum(np.abs(insole_gaps - marker_gaps)))
+                if best_score is None or score < best_score:
+                    best_score, hop_contacts = score, window
+        else:
+            hop_contacts = contacts[:window_size]
+
+        count = min(len(hop_pairs), len(hop_contacts))
+        if count == 0:
+            raise ValueError(f"Triple hop landing/contact pairing was not found for {trial.name}")
+
+        shifts = [
+            float(trc["time"][hop_pairs[i][1]]) - float(insole_all.time.iloc[hop_contacts[i][0]])
+            for i in range(count)
+        ]
+        shift = float(np.median(shifts))
+        spread = float(max(shifts) - min(shifts)) if count > 1 else None
+        quality_omit = count < 3 or spread is None or spread > SYNC_CONSISTENCY_TOLERANCE_S
+
+        last_start, last_end = hop_contacts[count - 1]
+        peak_index = last_start + int(np.argmax(force[last_start:last_end + 1]))
+        peak_marker_time = float(insole_all.time.iloc[peak_index]) + shift
+
+        first_marker_landing_time = float(trc["time"][hop_pairs[0][1]])
+        window_start_offset = (first_marker_landing_time - peak_marker_time) + self.config.jump_window_s[0]
+
+        # _finish_sync computes shift itself as (open_event - insole_event)
+        # -- pass a real marker time and a synthetic insole time so that
+        # difference reproduces exactly the median shift computed above,
+        # rather than just one hop's (possibly noisier) individual pairing.
+        synthetic_insole_time = first_marker_landing_time - shift
+
+        return self._finish_sync(
+            trial, trc, ik_all, insole_all,
+            first_marker_landing_time, synthetic_insole_time, peak_index,
+            "triple_hop_first_three_hops_median_shift",
+            hop_pairs[0][1],
+            quality_omit=quality_omit,
+            peak_window_seconds=(window_start_offset, self.config.jump_window_s[1]),
+            sync_side=own_side,
         )
 
 
@@ -404,6 +841,8 @@ _ACTIVITY_CLASSES = {
     "skh": SkaterHop,
     "lateral_hop": LateralHop,
     "lh": LateralHop,
+    "triple_hop": TripleHop,
+    "th": TripleHop,
 }
 
 

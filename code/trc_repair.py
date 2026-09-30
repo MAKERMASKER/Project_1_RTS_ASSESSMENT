@@ -136,10 +136,24 @@ class TrcRepairValidator:
         self.framework_processor = FrameworkProcessor(config)
         self.ik_runner = OpenCapIkRunner(config)
 
-    def validate(self, subject, activity, trial, repaired_trc_path, out_dir: Path = None) -> pd.DataFrame:
+    def validate(self, subject, activity, trial, repaired_trc_path, out_dir: Path = None, side: str = None) -> pd.DataFrame:
         """Compare a candidate repair against the untouched TRC and the marker
         ground truth. Writes CSVs + a comparison plot; returns the per-joint
-        summary. Promoting the repair is a separate, human decision."""
+        summary. Promoting the repair is a separate, human decision.
+
+        `side`: which leg's hip/knee/ankle angle+moment to validate against.
+        Defaults to trial.side (every unilateral activity: SLJ, LH). For a
+        bilateral activity with no committed side (trial.side is None, e.g.
+        SkaterHop), pass the activity's fixed sync side explicitly (SKH
+        always syncs/validates on "R" -- see SkaterHop's sync_side="R" in
+        activities.py) -- this cannot be inferred from the trial alone."""
+        side = side or trial.side
+        if side is None:
+            raise ValueError(
+                f"{trial.name}: trial.side is None (bilateral activity) and no "
+                f"explicit side was passed to validate() -- cannot pick which "
+                f"leg's angle/moment to compare."
+            )
         out_dir = Path(out_dir) if out_dir else trial.output / "trc_repair_validation"
         local_original_dir = out_dir / "local_original"
         local_repaired_dir = out_dir / "local_repaired"
@@ -162,7 +176,7 @@ class TrcRepairValidator:
 
         repaired_data = np.load(local_repaired_dir / "trial_data.npz", allow_pickle=True)
         time = repaired_data["time"].astype(float)
-        side = trial.side.lower()
+        side = side.lower()
         angle_names = [f"hip_flexion_{side}", f"knee_angle_{side}", f"ankle_angle_{side}"]
         moment_names = [f"{name}_moment" for name in angle_names]
 
@@ -175,7 +189,7 @@ class TrcRepairValidator:
         marker_id = read_storage(marker_root / "id" / f"{trial.name}_inverse_dynamics.sto")
 
         force_plate = read_storage(trial.force_mot)
-        plate = 1 if trial.side == "R" else 2
+        plate = 1 if side == "r" else 2
         vertical = np.abs(force_plate[f"ground_force_{plate}_vy"].to_numpy())
         shift = float(time[np.argmax(repaired_data["force"])] - force_plate.time.iloc[np.argmax(vertical)])
         marker_time = time - shift

@@ -1,14 +1,62 @@
 {
-    "force_scale_mode": {"L": "body_weight_from_stable_side_force", "R": "body_weight_from_stable_side_force"},
-    "force_scale": {"L": 1.0, "R": 1.0},
-    "force_scale_note": "Real per-side auto-fit enabled 2026-09 (was previously stuck on a stale placeholder gain of 0.891 for both sides, carried over from the old bilateral-fit pipeline -- never actually re-fit until now).",
-    "exclude": ["NTS01_NOEXO_SLJ_R_4"],
-    "use_last_flight_peak": [],
-    "landing_ordinal": {"NTS01_EXO_SLJ_R_3": 2},
-    "opencap_aliases": {"NTS01_NOEXO_LH_L_1": "NTS01_NOEXO_SLJ_LH_1"},
-    "insole_aliases": {"NTS01_NOEXO_LH_L_1": "NTS01_NOEXO_LH_1"},
-    "opencap_session_overrides": {},
-    "repaired_trials": [],
-    "insole_vertical_weight": 0.95,
-    "com_vertical_weight": 0.05
+  "force_scale_mode": {
+    "L": "body_weight_from_stable_side_force",
+    "R": "body_weight_from_stable_side_force"
+  },
+  "force_scale": {
+    "L": 1.0,
+    "R": 1.0
+  },
+  "force_scale_note": "Real per-side auto-fit enabled 2026-09 (was previously stuck on a stale placeholder gain of 0.891 for both sides, carried over from the old bilateral-fit pipeline -- never actually re-fit until now).",
+  "exclude": [
+    "NTS01_NOEXO_SLJ_R_4"
+  ],
+  "use_last_flight_peak": [],
+  "landing_ordinal": {
+    "NTS01_EXO_SLJ_R_3": 2
+  },
+  "opencap_aliases": {
+    "NTS01_NOEXO_LH_L_1": "NTS01_NOEXO_SLJ_LH_1"
+  },
+  "insole_aliases": {
+    "NTS01_NOEXO_LH_L_1": "NTS01_NOEXO_LH_1"
+  },
+  "opencap_session_overrides": {},
+  "repaired_trials": [],
+  "insole_vertical_weight": 0.95,
+  "com_vertical_weight": 0.05,
+  "lh_manual_sync": {
+    "NTS01_EXO_LH_R_1": {
+      "status": "synced",
+      "insole_click_s": 9.49,
+      "opencap_click_s": 6.9075,
+      "source": "state_machine_auto_sync"
+    },
+    "NTS01_NOEXO_LH_L_1": {
+      "status": "synced",
+      "insole_click_s": 7.08,
+      "opencap_click_s": 4.4608,
+      "source": "state_machine_auto_sync"
+    },
+    "NTS01_NOEXO_LH_R_1": {
+      "status": "synced",
+      "insole_click_s": 6.81,
+      "opencap_click_s": 4.1963,
+      "source": "state_machine_auto_sync"
+    }
+  },
+  "skh_manual_sync": {
+    "NTS01_EXO_SKH_1": {
+      "status": "synced",
+      "insole_click_s": 7.38,
+      "opencap_click_s": 5.1225,
+      "source": "state_machine_auto_sync"
+    },
+    "NTS01_NOEXO_SKH_1": {
+      "status": "synced",
+      "insole_click_s": 7.1,
+      "opencap_click_s": 4.3333,
+      "source": "state_machine_auto_sync"
+    }
+  }
 }

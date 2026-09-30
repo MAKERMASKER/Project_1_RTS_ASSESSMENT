@@ -45,3 +45,14 @@ __pycache__/
 # OS / editor cruft
 .DS_Store
 Thumbs.db
+
+# Pre-change backups written by promotion scripts (promote_sync.py,
+# apply_ideal_gains.py) -- local safety copies, not source.
+*.presync.json
+*.prebenchmark.json
+
+# Experimental scratch area -- sanctioned per CLAUDE.md, never imported by
+# production code. Untracked deliberately: one-off investigations, not source.
+# Their conclusions live in resources/*.md and any load-bearing output is
+# promoted into code/subject_rules/ before it matters.
+code/expt_temp/
