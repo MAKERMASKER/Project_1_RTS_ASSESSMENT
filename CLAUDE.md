@@ -139,6 +139,26 @@ whose `Folder` isn't populated yet. See "Never raise" under Architecture.
   `com_vertical_weight` blend in the (not-yet-written) framework processor is a
   deliberate mitigation for this, not an arbitrary constant -- treat its weight
   as an investigation target, not a fixed default.
+- **The marker-mocap lab's global frame and OpenCap's own global frame are
+  rotated ~90deg apart** -- two independently-calibrated systems (lab wand
+  calibration vs. OpenCap's own camera checkerboard calibration) with no
+  shared-orientation guarantee, and empirically they don't share one.
+  Confirmed 2026-09-23 across 3 subjects via COM and pelvis-translation
+  cross-correlation (see `code/expt_temp/axis_consistency_check/`):
+  `opencap_X == +marker_Z`, `opencap_Z == -marker_X` (crossed pairs
+  correlate at `|r| > 0.93` on every trial checked; the naive "matched"
+  X-vs-X/Z-vs-Z pairs are weak and inconsistent in sign). This affects
+  **only** raw global Fx/Fz and COM X/Z -- COP-in-foot-frame
+  (`InsoleGeometry.to_local()`, built fresh from each trial's own foot
+  markers) and joint moments (from each pipeline's own independent ID, in
+  that model's own joint-local axes) are anatomically/joint-referenced and
+  confirmed frame-invariant, not affected. Fixed in `outcomes.py`'s
+  `analyze_trial()` (the only production code comparing raw marker vs.
+  framework Fx/Fz -- confirmed via a full-codebase grep) by reprojecting
+  the marker force plate's Fx/Fz into OpenCap's frame before comparing;
+  verified the fix reduces (not eliminates -- real horizontal-GRF noise
+  remains, see the point above) RMSE on a real trial. Not yet re-run across
+  the full dataset as of this note.
 
 ## Architecture
 

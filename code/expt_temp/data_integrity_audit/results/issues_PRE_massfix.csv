@@ -1,0 +1,202 @@
+Subject,Activity,Trial,Severity,Issue,Detail
+AB03,lateral_hop,AB03_EXO_LH_R_1,HIGH,EXTREME_GRF_DISAGREEMENT,vertical GRF RMSE 991 N = 42% of marker peak
+AB03,skater_hop,AB03_NOEXO_SKH_2,HIGH,EXTREME_GRF_DISAGREEMENT,vertical GRF RMSE 931 N = 40% of marker peak
+AB05,lateral_hop,AB05_EXO_LH_R_2,HIGH,EXTREME_GRF_DISAGREEMENT,vertical GRF RMSE 930 N = 43% of marker peak
+AB08,lateral_hop,AB08_EXO_LH_R_2,HIGH,EXTREME_GRF_DISAGREEMENT,vertical GRF RMSE 862 N = 47% of marker peak
+AB08,skater_hop,AB08_EXO_SKH_1,HIGH,EXTREME_GRF_DISAGREEMENT,vertical GRF RMSE 464 N = 36% of marker peak
+AB08,lateral_hop,AB08_NOEXO_LH_L_2,HIGH,EXTREME_GRF_DISAGREEMENT,vertical GRF RMSE 774 N = 43% of marker peak
+AB10,lateral_hop,AB10_EXO_LH_R_1,HIGH,EXTREME_GRF_DISAGREEMENT,vertical GRF RMSE 772 N = 40% of marker peak
+AB10,lateral_hop,AB10_EXO_LH_R_2,HIGH,EXTREME_GRF_DISAGREEMENT,vertical GRF RMSE 843 N = 44% of marker peak
+AB10,lateral_hop,AB10_NOEXO_LH_R_2,HIGH,EXTREME_GRF_DISAGREEMENT,vertical GRF RMSE 1644 N = 81% of marker peak
+AB10,triple_hop,AB10_NOEXO_TH_R_1,HIGH,EXTREME_GRF_DISAGREEMENT,vertical GRF RMSE 1821 N = 56% of marker peak
+NTS01,skater_hop,NTS01_NOEXO_SKH_1,HIGH,EXTREME_GRF_DISAGREEMENT,vertical GRF RMSE 508 N = 37% of marker peak
+AB03,lateral_hop,AB03_EXO_LH_R_1,HIGH,EXTREME_PEAK_DISAGREEMENT,framework/marker peak ratio 0.32 (752 N vs 2333 N)
+AB03,lateral_hop,AB03_EXO_LH_R_3,HIGH,EXTREME_PEAK_DISAGREEMENT,framework/marker peak ratio 0.44 (857 N vs 1966 N)
+AB03,skater_hop,AB03_EXO_SKH_1,HIGH,EXTREME_PEAK_DISAGREEMENT,framework/marker peak ratio 0.45 (837 N vs 1878 N)
+AB03,skater_hop,AB03_EXO_SKH_2,HIGH,EXTREME_PEAK_DISAGREEMENT,framework/marker peak ratio 0.39 (787 N vs 2020 N)
+AB03,lateral_hop,AB03_NOEXO_LH_L_1,HIGH,EXTREME_PEAK_DISAGREEMENT,framework/marker peak ratio 0.33 (897 N vs 2729 N)
+AB03,lateral_hop,AB03_NOEXO_LH_R_1,HIGH,EXTREME_PEAK_DISAGREEMENT,framework/marker peak ratio 0.33 (744 N vs 2235 N)
+AB03,skater_hop,AB03_NOEXO_SKH_1,HIGH,EXTREME_PEAK_DISAGREEMENT,framework/marker peak ratio 0.38 (781 N vs 2063 N)
+AB03,skater_hop,AB03_NOEXO_SKH_2,HIGH,EXTREME_PEAK_DISAGREEMENT,framework/marker peak ratio 0.31 (715 N vs 2325 N)
+AB08,lateral_hop,AB08_EXO_LH_R_2,HIGH,EXTREME_PEAK_DISAGREEMENT,framework/marker peak ratio 0.33 (609 N vs 1823 N)
+AB08,skater_hop,AB08_EXO_SKH_1,HIGH,EXTREME_PEAK_DISAGREEMENT,framework/marker peak ratio 0.59 (753 N vs 1282 N)
+AB08,lateral_hop,AB08_NOEXO_LH_L_2,HIGH,EXTREME_PEAK_DISAGREEMENT,framework/marker peak ratio 0.25 (438 N vs 1780 N)
+AB08,lateral_hop,AB08_NOEXO_LH_R_1,HIGH,EXTREME_PEAK_DISAGREEMENT,framework/marker peak ratio 0.58 (1065 N vs 1846 N)
+AB08,skater_hop,AB08_NOEXO_SKH_1,HIGH,EXTREME_PEAK_DISAGREEMENT,framework/marker peak ratio 0.60 (762 N vs 1271 N)
+AB08,skater_hop,AB08_NOEXO_SKH_2,HIGH,EXTREME_PEAK_DISAGREEMENT,framework/marker peak ratio 0.54 (755 N vs 1388 N)
+AB10,lateral_hop,AB10_NOEXO_LH_R_2,HIGH,EXTREME_PEAK_DISAGREEMENT,framework/marker peak ratio 0.06 (122 N vs 2038 N)
+AB10,skater_hop,AB10_NOEXO_SKH_1,HIGH,EXTREME_PEAK_DISAGREEMENT,framework/marker peak ratio 0.40 (639 N vs 1601 N)
+AB10,triple_hop,AB10_NOEXO_TH_R_1,HIGH,EXTREME_PEAK_DISAGREEMENT,framework/marker peak ratio 2.29 (7445 N vs 3252 N)
+NTS01,skater_hop,NTS01_NOEXO_SKH_1,HIGH,EXTREME_PEAK_DISAGREEMENT,framework/marker peak ratio 0.54 (739 N vs 1381 N)
+AB03,lateral_hop,AB03_EXO_LH_R_1,HIGH,IMPLAUSIBLE_JOINT_MOMENT,Marker peak |knee_angle| = 971 Nm (limit 400)
+AB03,lateral_hop,AB03_EXO_LH_R_1,HIGH,IMPLAUSIBLE_JOINT_MOMENT,Marker peak |hip_flexion| = 1682 Nm (limit 650)
+AB03,triple_hop,AB03_NOEXO_TH_L_1,HIGH,IMPLAUSIBLE_JOINT_MOMENT,Marker peak |knee_angle| = 494 Nm (limit 400)
+AB10,triple_hop,AB10_NOEXO_TH_R_1,HIGH,IMPLAUSIBLE_JOINT_MOMENT,Framework peak |knee_angle| = 638 Nm (limit 400)
+AB10,triple_hop,AB10_NOEXO_TH_R_1,HIGH,IMPLAUSIBLE_JOINT_MOMENT,Framework peak |hip_flexion| = 2356 Nm (limit 650)
+NTS01,lateral_hop,NTS01_NOEXO_LH_L_1,HIGH,IMPLAUSIBLE_JOINT_MOMENT,Marker peak |knee_angle| = 836 Nm (limit 400)
+NTS01,lateral_hop,NTS01_NOEXO_LH_L_1,HIGH,IMPLAUSIBLE_JOINT_MOMENT,Marker peak |hip_flexion| = 1586 Nm (limit 650)
+AB08,lateral_hop,AB08_NOEXO_LH_L_2,HIGH,IMPLAUSIBLE_PEAK_FORCE,framework peak 438 N = 0.71 BW (expected 0.8-6.0)
+AB10,lateral_hop,AB10_NOEXO_LH_R_2,HIGH,IMPLAUSIBLE_PEAK_FORCE,framework peak 122 N = 0.17 BW (expected 0.8-6.0)
+AB10,triple_hop,AB10_NOEXO_TH_R_1,HIGH,IMPLAUSIBLE_PEAK_FORCE,framework peak 7445 N = 10.54 BW (expected 0.8-6.0)
+AB03,triple_hop,AB03_EXO_TH_R_1,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB03,triple_hop,AB03_EXO_TH_R_2,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB03,triple_hop,AB03_EXO_TH_R_3,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB03,triple_hop,AB03_EXO_TH_R_4,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB03,triple_hop,AB03_EXO_TH_R_5,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB03,single_leg_jump,AB03_NOEXO_SLJ_L_2,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB03,triple_hop,AB03_NOEXO_TH_L_2,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB03,triple_hop,AB03_NOEXO_TH_L_3,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB03,triple_hop,AB03_NOEXO_TH_L_4,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB03,triple_hop,AB03_NOEXO_TH_L_5,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB03,triple_hop,AB03_NOEXO_TH_L_6,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB03,triple_hop,AB03_NOEXO_TH_R_1,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB03,triple_hop,AB03_NOEXO_TH_R_2,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB03,triple_hop,AB03_NOEXO_TH_R_3,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB03,triple_hop,AB03_NOEXO_TH_R_4,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB03,triple_hop,AB03_NOEXO_TH_R_5,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB03,triple_hop,AB03_NOEXO_TH_R_6,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB05,triple_hop,AB05_EXO_TH_R_2,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB05,triple_hop,AB05_EXO_TH_R_3,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB05,triple_hop,AB05_EXO_TH_R_4,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB05,triple_hop,AB05_EXO_TH_R_5,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB05,triple_hop,AB05_NOEXO_TH_L_1,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB05,triple_hop,AB05_NOEXO_TH_L_2,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB05,triple_hop,AB05_NOEXO_TH_L_3,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB05,triple_hop,AB05_NOEXO_TH_L_4,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB05,triple_hop,AB05_NOEXO_TH_L_5,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB05,triple_hop,AB05_NOEXO_TH_R_1,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB05,triple_hop,AB05_NOEXO_TH_R_3,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB05,triple_hop,AB05_NOEXO_TH_R_4,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB05,triple_hop,AB05_NOEXO_TH_R_5,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB05,triple_hop,AB05_NOEXO_TH_R_6,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB07,triple_hop,AB07_EXO_TH_R_1,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB07,triple_hop,AB07_EXO_TH_R_2,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB07,triple_hop,AB07_EXO_TH_R_3,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB07,triple_hop,AB07_EXO_TH_R_4,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB07,triple_hop,AB07_EXO_TH_R_5,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB07,triple_hop,AB07_NOEXO_TH_L_2,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB07,triple_hop,AB07_NOEXO_TH_L_3,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB07,triple_hop,AB07_NOEXO_TH_L_4,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB07,triple_hop,AB07_NOEXO_TH_L_5,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB07,triple_hop,AB07_NOEXO_TH_R_1,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB07,triple_hop,AB07_NOEXO_TH_R_2,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB07,triple_hop,AB07_NOEXO_TH_R_3,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB07,triple_hop,AB07_NOEXO_TH_R_4,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB07,triple_hop,AB07_NOEXO_TH_R_5,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB07,triple_hop,AB07_NOEXO_TH_R_6,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB08,triple_hop,AB08_EXO_TH_R_1,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB08,triple_hop,AB08_EXO_TH_R_2,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB08,triple_hop,AB08_EXO_TH_R_3,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB08,triple_hop,AB08_EXO_TH_R_4,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB08,triple_hop,AB08_EXO_TH_R_5,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB08,triple_hop,AB08_NOEXO_TH_L_1,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB08,triple_hop,AB08_NOEXO_TH_L_2,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB08,triple_hop,AB08_NOEXO_TH_L_3,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB08,triple_hop,AB08_NOEXO_TH_L_4,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB08,triple_hop,AB08_NOEXO_TH_L_5,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB08,triple_hop,AB08_NOEXO_TH_R_2,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB08,triple_hop,AB08_NOEXO_TH_R_3,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB08,triple_hop,AB08_NOEXO_TH_R_4,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB08,triple_hop,AB08_NOEXO_TH_R_5,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB10,triple_hop,AB10_EXO_TH_R_1,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB10,triple_hop,AB10_EXO_TH_R_2,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB10,triple_hop,AB10_EXO_TH_R_3,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB10,triple_hop,AB10_EXO_TH_R_4,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB10,triple_hop,AB10_EXO_TH_R_5,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB10,single_leg_jump,AB10_NOEXO_SLJ_R_6,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB10,triple_hop,AB10_NOEXO_TH_L_1,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB10,triple_hop,AB10_NOEXO_TH_L_2,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB10,triple_hop,AB10_NOEXO_TH_L_3,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB10,triple_hop,AB10_NOEXO_TH_L_4,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB10,triple_hop,AB10_NOEXO_TH_L_5,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB10,triple_hop,AB10_NOEXO_TH_R_2,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB10,triple_hop,AB10_NOEXO_TH_R_3,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB10,triple_hop,AB10_NOEXO_TH_R_4,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB10,triple_hop,AB10_NOEXO_TH_R_5,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+NTS01,triple_hop,NTS01_EXO_TH_R_1,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+NTS01,triple_hop,NTS01_EXO_TH_R_3,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+NTS01,single_leg_jump,NTS01_NOEXO_SLJ_L_1,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+NTS01,triple_hop,NTS01_NOEXO_TH_L_1,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+NTS01,triple_hop,NTS01_NOEXO_TH_L_3,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+NTS01,triple_hop,NTS01_NOEXO_TH_R_2,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+NTS01,triple_hop,NTS01_NOEXO_TH_R_3,HIGH,NO_FRAMEWORK_OUTPUT,trial_data.npz missing although discovery accepts the trial
+AB03,lateral_hop,AB03_EXO_LH_R_1,HIGH,POOR_SYNC_OR_SHAPE,framework-vs-plate vertical GRF correlation only -0.02
+AB03,lateral_hop,AB03_EXO_LH_R_3,HIGH,POOR_SYNC_OR_SHAPE,framework-vs-plate vertical GRF correlation only 0.15
+AB03,skater_hop,AB03_EXO_SKH_1,HIGH,POOR_SYNC_OR_SHAPE,framework-vs-plate vertical GRF correlation only 0.08
+AB03,skater_hop,AB03_EXO_SKH_2,HIGH,POOR_SYNC_OR_SHAPE,framework-vs-plate vertical GRF correlation only 0.49
+AB03,lateral_hop,AB03_NOEXO_LH_L_1,HIGH,POOR_SYNC_OR_SHAPE,framework-vs-plate vertical GRF correlation only 0.08
+AB03,lateral_hop,AB03_NOEXO_LH_R_2,HIGH,POOR_SYNC_OR_SHAPE,framework-vs-plate vertical GRF correlation only 0.46
+AB03,skater_hop,AB03_NOEXO_SKH_2,HIGH,POOR_SYNC_OR_SHAPE,framework-vs-plate vertical GRF correlation only 0.28
+AB05,lateral_hop,AB05_EXO_LH_R_1,HIGH,POOR_SYNC_OR_SHAPE,framework-vs-plate vertical GRF correlation only 0.43
+AB05,lateral_hop,AB05_EXO_LH_R_2,HIGH,POOR_SYNC_OR_SHAPE,framework-vs-plate vertical GRF correlation only 0.34
+AB05,skater_hop,AB05_EXO_SKH_1,HIGH,POOR_SYNC_OR_SHAPE,framework-vs-plate vertical GRF correlation only 0.48
+AB05,lateral_hop,AB05_NOEXO_LH_L_2,HIGH,POOR_SYNC_OR_SHAPE,framework-vs-plate vertical GRF correlation only 0.09
+AB05,lateral_hop,AB05_NOEXO_LH_R_1,HIGH,POOR_SYNC_OR_SHAPE,framework-vs-plate vertical GRF correlation only 0.43
+AB07,lateral_hop,AB07_EXO_LH_R_2,HIGH,POOR_SYNC_OR_SHAPE,framework-vs-plate vertical GRF correlation only 0.27
+AB07,lateral_hop,AB07_NOEXO_LH_L_1,HIGH,POOR_SYNC_OR_SHAPE,framework-vs-plate vertical GRF correlation only 0.49
+AB07,lateral_hop,AB07_NOEXO_LH_R_3,HIGH,POOR_SYNC_OR_SHAPE,framework-vs-plate vertical GRF correlation only 0.20
+AB08,lateral_hop,AB08_EXO_LH_R_2,HIGH,POOR_SYNC_OR_SHAPE,framework-vs-plate vertical GRF correlation only 0.08
+AB08,lateral_hop,AB08_NOEXO_LH_L_1,HIGH,POOR_SYNC_OR_SHAPE,framework-vs-plate vertical GRF correlation only 0.11
+AB08,lateral_hop,AB08_NOEXO_LH_L_2,HIGH,POOR_SYNC_OR_SHAPE,framework-vs-plate vertical GRF correlation only 0.44
+AB08,skater_hop,AB08_NOEXO_SKH_1,HIGH,POOR_SYNC_OR_SHAPE,framework-vs-plate vertical GRF correlation only 0.28
+AB08,skater_hop,AB08_NOEXO_SKH_2,HIGH,POOR_SYNC_OR_SHAPE,framework-vs-plate vertical GRF correlation only 0.31
+AB08,triple_hop,AB08_NOEXO_TH_R_1,HIGH,POOR_SYNC_OR_SHAPE,framework-vs-plate vertical GRF correlation only 0.10
+AB10,lateral_hop,AB10_EXO_LH_R_1,HIGH,POOR_SYNC_OR_SHAPE,framework-vs-plate vertical GRF correlation only 0.25
+AB10,lateral_hop,AB10_EXO_LH_R_2,HIGH,POOR_SYNC_OR_SHAPE,framework-vs-plate vertical GRF correlation only 0.43
+AB10,lateral_hop,AB10_NOEXO_LH_L_2,HIGH,POOR_SYNC_OR_SHAPE,framework-vs-plate vertical GRF correlation only 0.04
+AB10,lateral_hop,AB10_NOEXO_LH_R_1,HIGH,POOR_SYNC_OR_SHAPE,framework-vs-plate vertical GRF correlation only 0.45
+NTS01,lateral_hop,NTS01_NOEXO_LH_L_1,HIGH,POOR_SYNC_OR_SHAPE,framework-vs-plate vertical GRF correlation only 0.07
+NTS01,lateral_hop,NTS01_NOEXO_LH_R_1,HIGH,POOR_SYNC_OR_SHAPE,framework-vs-plate vertical GRF correlation only 0.47
+NTS01,skater_hop,NTS01_NOEXO_SKH_1,HIGH,POOR_SYNC_OR_SHAPE,framework-vs-plate vertical GRF correlation only 0.08
+AB03,lateral_hop,AB03_EXO_LH_R_1,MEDIUM,MODEL_MASS_MISMATCH,model 89.0 kg vs metadata 68.3 kg (30.3%)
+AB03,lateral_hop,AB03_EXO_LH_R_2,MEDIUM,MODEL_MASS_MISMATCH,model 89.0 kg vs metadata 68.3 kg (30.3%)
+AB03,lateral_hop,AB03_EXO_LH_R_3,MEDIUM,MODEL_MASS_MISMATCH,model 89.0 kg vs metadata 68.3 kg (30.3%)
+AB03,skater_hop,AB03_EXO_SKH_1,MEDIUM,MODEL_MASS_MISMATCH,model 89.0 kg vs metadata 68.3 kg (30.3%)
+AB03,skater_hop,AB03_EXO_SKH_2,MEDIUM,MODEL_MASS_MISMATCH,model 89.0 kg vs metadata 68.3 kg (30.3%)
+AB03,single_leg_jump,AB03_EXO_SLJ_R_1,MEDIUM,MODEL_MASS_MISMATCH,model 89.0 kg vs metadata 68.3 kg (30.3%)
+AB03,single_leg_jump,AB03_EXO_SLJ_R_2,MEDIUM,MODEL_MASS_MISMATCH,model 89.0 kg vs metadata 68.3 kg (30.3%)
+AB03,single_leg_jump,AB03_EXO_SLJ_R_3,MEDIUM,MODEL_MASS_MISMATCH,model 89.0 kg vs metadata 68.3 kg (30.3%)
+AB03,single_leg_jump,AB03_EXO_SLJ_R_5,MEDIUM,MODEL_MASS_MISMATCH,model 89.0 kg vs metadata 68.3 kg (30.3%)
+AB03,single_leg_jump,AB03_EXO_SLJ_R_6,MEDIUM,MODEL_MASS_MISMATCH,model 89.0 kg vs metadata 68.3 kg (30.3%)
+AB03,lateral_hop,AB03_NOEXO_LH_L_1,MEDIUM,MODEL_MASS_MISMATCH,model 89.0 kg vs metadata 68.3 kg (30.3%)
+AB03,lateral_hop,AB03_NOEXO_LH_L_2,MEDIUM,MODEL_MASS_MISMATCH,model 89.0 kg vs metadata 68.3 kg (30.3%)
+AB03,lateral_hop,AB03_NOEXO_LH_R_1,MEDIUM,MODEL_MASS_MISMATCH,model 89.0 kg vs metadata 68.3 kg (30.3%)
+AB03,lateral_hop,AB03_NOEXO_LH_R_2,MEDIUM,MODEL_MASS_MISMATCH,model 89.0 kg vs metadata 68.3 kg (30.3%)
+AB03,skater_hop,AB03_NOEXO_SKH_1,MEDIUM,MODEL_MASS_MISMATCH,model 89.0 kg vs metadata 68.3 kg (30.3%)
+AB03,skater_hop,AB03_NOEXO_SKH_2,MEDIUM,MODEL_MASS_MISMATCH,model 89.0 kg vs metadata 68.3 kg (30.3%)
+AB03,single_leg_jump,AB03_NOEXO_SLJ_L_3,MEDIUM,MODEL_MASS_MISMATCH,model 89.0 kg vs metadata 68.3 kg (30.3%)
+AB03,single_leg_jump,AB03_NOEXO_SLJ_L_4,MEDIUM,MODEL_MASS_MISMATCH,model 89.0 kg vs metadata 68.3 kg (30.3%)
+AB03,single_leg_jump,AB03_NOEXO_SLJ_L_5,MEDIUM,MODEL_MASS_MISMATCH,model 89.0 kg vs metadata 68.3 kg (30.3%)
+AB03,single_leg_jump,AB03_NOEXO_SLJ_L_6,MEDIUM,MODEL_MASS_MISMATCH,model 89.0 kg vs metadata 68.3 kg (30.3%)
+AB03,single_leg_jump,AB03_NOEXO_SLJ_L_7,MEDIUM,MODEL_MASS_MISMATCH,model 89.0 kg vs metadata 68.3 kg (30.3%)
+AB03,single_leg_jump,AB03_NOEXO_SLJ_R_1,MEDIUM,MODEL_MASS_MISMATCH,model 89.0 kg vs metadata 68.3 kg (30.3%)
+AB03,single_leg_jump,AB03_NOEXO_SLJ_R_2,MEDIUM,MODEL_MASS_MISMATCH,model 89.0 kg vs metadata 68.3 kg (30.3%)
+AB03,single_leg_jump,AB03_NOEXO_SLJ_R_3,MEDIUM,MODEL_MASS_MISMATCH,model 89.0 kg vs metadata 68.3 kg (30.3%)
+AB03,single_leg_jump,AB03_NOEXO_SLJ_R_4,MEDIUM,MODEL_MASS_MISMATCH,model 89.0 kg vs metadata 68.3 kg (30.3%)
+AB03,single_leg_jump,AB03_NOEXO_SLJ_R_5,MEDIUM,MODEL_MASS_MISMATCH,model 89.0 kg vs metadata 68.3 kg (30.3%)
+AB03,triple_hop,AB03_NOEXO_TH_L_1,MEDIUM,MODEL_MASS_MISMATCH,model 89.0 kg vs metadata 68.3 kg (30.3%)
+AB05,lateral_hop,AB05_EXO_LH_R_1,MEDIUM,MODEL_MASS_MISMATCH,model 68.3 kg vs metadata 89.0 kg (23.3%)
+AB05,lateral_hop,AB05_EXO_LH_R_2,MEDIUM,MODEL_MASS_MISMATCH,model 68.3 kg vs metadata 89.0 kg (23.3%)
+AB05,skater_hop,AB05_EXO_SKH_1,MEDIUM,MODEL_MASS_MISMATCH,model 68.3 kg vs metadata 89.0 kg (23.3%)
+AB05,skater_hop,AB05_EXO_SKH_2,MEDIUM,MODEL_MASS_MISMATCH,model 68.3 kg vs metadata 89.0 kg (23.3%)
+AB05,single_leg_jump,AB05_EXO_SLJ_R_1,MEDIUM,MODEL_MASS_MISMATCH,model 68.3 kg vs metadata 89.0 kg (23.3%)
+AB05,single_leg_jump,AB05_EXO_SLJ_R_2,MEDIUM,MODEL_MASS_MISMATCH,model 68.3 kg vs metadata 89.0 kg (23.3%)
+AB05,single_leg_jump,AB05_EXO_SLJ_R_3,MEDIUM,MODEL_MASS_MISMATCH,model 68.3 kg vs metadata 89.0 kg (23.3%)
+AB05,single_leg_jump,AB05_EXO_SLJ_R_4,MEDIUM,MODEL_MASS_MISMATCH,model 68.3 kg vs metadata 89.0 kg (23.3%)
+AB05,single_leg_jump,AB05_EXO_SLJ_R_5,MEDIUM,MODEL_MASS_MISMATCH,model 68.3 kg vs metadata 89.0 kg (23.3%)
+AB05,lateral_hop,AB05_NOEXO_LH_L_1,MEDIUM,MODEL_MASS_MISMATCH,model 68.3 kg vs metadata 89.0 kg (23.3%)
+AB05,lateral_hop,AB05_NOEXO_LH_L_2,MEDIUM,MODEL_MASS_MISMATCH,model 68.3 kg vs metadata 89.0 kg (23.3%)
+AB05,lateral_hop,AB05_NOEXO_LH_R_1,MEDIUM,MODEL_MASS_MISMATCH,model 68.3 kg vs metadata 89.0 kg (23.3%)
+AB05,lateral_hop,AB05_NOEXO_LH_R_2,MEDIUM,MODEL_MASS_MISMATCH,model 68.3 kg vs metadata 89.0 kg (23.3%)
+AB05,skater_hop,AB05_NOEXO_SKH_1,MEDIUM,MODEL_MASS_MISMATCH,model 68.3 kg vs metadata 89.0 kg (23.3%)
+AB05,skater_hop,AB05_NOEXO_SKH_2,MEDIUM,MODEL_MASS_MISMATCH,model 68.3 kg vs metadata 89.0 kg (23.3%)
+AB05,single_leg_jump,AB05_NOEXO_SLJ_L_1,MEDIUM,MODEL_MASS_MISMATCH,model 68.3 kg vs metadata 89.0 kg (23.3%)
+AB05,single_leg_jump,AB05_NOEXO_SLJ_L_2,MEDIUM,MODEL_MASS_MISMATCH,model 68.3 kg vs metadata 89.0 kg (23.3%)
+AB05,single_leg_jump,AB05_NOEXO_SLJ_L_3,MEDIUM,MODEL_MASS_MISMATCH,model 68.3 kg vs metadata 89.0 kg (23.3%)
+AB05,single_leg_jump,AB05_NOEXO_SLJ_L_4,MEDIUM,MODEL_MASS_MISMATCH,model 68.3 kg vs metadata 89.0 kg (23.3%)
+AB05,single_leg_jump,AB05_NOEXO_SLJ_L_5,MEDIUM,MODEL_MASS_MISMATCH,model 68.3 kg vs metadata 89.0 kg (23.3%)
+AB05,single_leg_jump,AB05_NOEXO_SLJ_R_1,MEDIUM,MODEL_MASS_MISMATCH,model 68.3 kg vs metadata 89.0 kg (23.3%)
+AB05,single_leg_jump,AB05_NOEXO_SLJ_R_2,MEDIUM,MODEL_MASS_MISMATCH,model 68.3 kg vs metadata 89.0 kg (23.3%)
+AB05,single_leg_jump,AB05_NOEXO_SLJ_R_3,MEDIUM,MODEL_MASS_MISMATCH,model 68.3 kg vs metadata 89.0 kg (23.3%)
+AB05,single_leg_jump,AB05_NOEXO_SLJ_R_4,MEDIUM,MODEL_MASS_MISMATCH,model 68.3 kg vs metadata 89.0 kg (23.3%)
+AB05,single_leg_jump,AB05_NOEXO_SLJ_R_5,MEDIUM,MODEL_MASS_MISMATCH,model 68.3 kg vs metadata 89.0 kg (23.3%)

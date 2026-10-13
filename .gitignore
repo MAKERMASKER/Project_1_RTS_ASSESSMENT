@@ -55,4 +55,19 @@ Thumbs.db
 # production code. Untracked deliberately: one-off investigations, not source.
 # Their conclusions live in resources/*.md and any load-bearing output is
 # promoted into code/subject_rules/ before it matters.
-code/expt_temp/
+# Experimental scratch area. Its SOURCE and FINDINGS are tracked (scripts and
+# READMEs are the record of how each investigation was done and what it
+# concluded); its rendered plots and binary outputs are not, since they are
+# regenerable by rerunning those scripts and run to ~130 MB.
+#
+# Note the directory itself is NOT excluded -- git will not descend into an
+# excluded directory, so a negation inside one never matches. The files are
+# excluded instead, then selectively re-included.
+code/expt_temp/**
+!code/expt_temp/**/
+!code/expt_temp/**/*.py
+!code/expt_temp/**/*.md
+!code/expt_temp/**/*.sh
+!code/expt_temp/**/*.json
+!code/expt_temp/**/*.csv
+code/expt_temp/**/__pycache__/**

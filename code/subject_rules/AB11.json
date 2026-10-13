@@ -1,0 +1,18 @@
+{
+    "force_scale_mode": {"L": "body_weight_from_stable_side_force", "R": "body_weight_from_stable_side_force"},
+    "force_scale": {"L": 1.0, "R": 1.0},
+    "exclude": [],
+    "use_last_flight_peak": [],
+    "landing_ordinal": {},
+    "opencap_aliases": {},
+    "insole_aliases": {},
+    "opencap_session_overrides": {},
+    "repaired_trials": [],
+    "insole_vertical_weight": 1.0,
+    "com_vertical_weight": 0.0,
+    "rotation_force_activities": [],
+    "rotation_force_weight_x": 0.0,
+    "rotation_force_weight_z": 0.0,
+    "note": "2026-10-05: AB11's NOEXO 505 trials were MISLABELLED AT CAPTURE and the raw files have been RENAMED ON DISK to correct it, per the user: the trial recorded as 505_R_2 is actually the first LEFT trial, and the trial recorded as 505_R_3 is actually the second RIGHT trial. Applied to marker C3D, raw insole .txt AND the OpenCap session trials, so all three modalities stay paired by name (discovery pairs them by filename). Renames, done in this order so R_3 -> R_2 could not clobber R_2 before it was freed: AB11_NOEXO_505_R_2 -> AB11_NOEXO_505_L_1, then AB11_NOEXO_505_R_3 -> AB11_NOEXO_505_R_2. Corroborating evidence that the correction is right: before the rename the NOEXO 505 set was L_2/R_1/R_2/R_3 -- an L_2 with no L_1, and three R trials; after it is the expected L_1/L_2/R_1/R_2. Note the insole data CANNOT confirm the plant leg independently (a 505 is run-plant-turn-run, so both feet load heavily -- peak L vs R within 15% on every NOEXO 505 trial, and the EXO 505 files read left-dominant despite EXO being right-leg-only by protocol), so this rests on the user's capture notes, not on the signals.",
+    "activity_note": "2026-10-05: AB11 introduces the 505 change-of-direction test (token '505'), which has no Activity subclass yet -- NOEXO L_1/L_2/R_1/R_2 and EXO R_1/R_2. It will be skipped by discovery until a 505 Activity is written."
+}

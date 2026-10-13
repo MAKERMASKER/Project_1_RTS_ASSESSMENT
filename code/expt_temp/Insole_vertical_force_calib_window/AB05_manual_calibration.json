@@ -1,0 +1,32 @@
+{
+  "L": {
+    "accepted_trials": 4,
+    "trials": [
+      "AB05_NOEXO_SLJ_L_1",
+      "AB05_NOEXO_SLJ_L_2",
+      "AB05_NOEXO_SLJ_L_3",
+      "AB05_NOEXO_SLJ_L_5"
+    ],
+    "median_of_accepted_n": 932.4610161161411,
+    "body_weight_n": 872.79185,
+    "gain": 0.9360089429103714,
+    "source": "manual_stance_selection"
+  },
+  "R": {
+    "accepted_trials": 8,
+    "trials": [
+      "AB05_EXO_SLJ_R_1",
+      "AB05_EXO_SLJ_R_2",
+      "AB05_EXO_SLJ_R_3",
+      "AB05_EXO_SLJ_R_4",
+      "AB05_EXO_SLJ_R_5",
+      "AB05_NOEXO_SLJ_R_2",
+      "AB05_NOEXO_SLJ_R_3",
+      "AB05_NOEXO_SLJ_R_4"
+    ],
+    "median_of_accepted_n": 915.9422189716423,
+    "body_weight_n": 872.79185,
+    "gain": 0.9528896385843109,
+    "source": "manual_stance_selection"
+  }
+}

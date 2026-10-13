@@ -1,0 +1,31 @@
+Comparison,Metric,Group,Mapping,IsokineticMetric,TestTrials,ReferenceTrials,Framework_LSI_pct,Framework_CI_low,Framework_CI_high,Framework_TrialCV_pct,Marker_LSI_pct,Marker_CI_low,Marker_CI_high,Marker_TrialCV_pct,Isokinetic_LSI_pct,Isokinetic_CoV_max,Framework_minus_Iso,Framework_CIspans100,Marker_minus_Iso,Marker_CIspans100
+NOEXO_L_vs_R,Knee extensor peak,Extension,direct,Extension_PeakTorque_ftlb,5,5,129.7,108.3,158.9,10.6,135.4,121.3,149.9,6.8,98.4,0.07,31.3,False,37.0,False
+NOEXO_L_vs_R,Knee extensor work,Extension,direct,Extension_TotalWork_ftlb,5,5,89.8,68.9,121.5,13.6,89.1,63.7,124.3,24.6,99.6,0.0,-9.8,True,-10.5,True
+NOEXO_L_vs_R,Knee extensor impulse,Extension,direct-ish,Extension_TotalWork_ftlb,5,5,84.9,63.3,115.5,19.3,89.0,67.1,120.6,19.4,99.6,0.0,-14.7,True,-10.6,True
+NOEXO_L_vs_R,Knee flexor peak,Flexion,direct but weak,Flexion_PeakTorque_ftlb,5,5,73.0,13.9,294.9,106.8,31.4,14.4,57.7,57.6,97.5,0.05,-24.5,True,-66.1,False
+NOEXO_L_vs_R,Knee flexor work,Flexion,direct but weak,Flexion_TotalWork_ftlb,5,5,112.9,18.5,672.9,116.1,93.2,29.7,3318.1,74.8,97.2,0.0,15.7,True,-4.0,True
+NOEXO_L_vs_R,Hip extensor peak,Flexion,functional,Flexion_PeakTorque_ftlb,5,5,101.1,83.1,129.3,28.0,94.3,86.2,102.8,9.4,97.5,0.05,3.6,True,-3.2,True
+NOEXO_L_vs_R,Hip extensor work,Flexion,functional,Flexion_TotalWork_ftlb,5,5,84.6,61.7,112.4,31.5,114.6,90.5,143.6,24.1,97.2,0.0,-12.6,True,17.4,True
+NOEXO_L_vs_R,H:Q peak ratio,H:Q,inherits flexor weakness,PeakTorque_HQ_Ratio_pct,5,5,50.4,9.8,252.1,103.5,22.8,10.2,43.6,58.1,98.5,,-48.1,True,-75.7,False
+NOEXO_L_vs_R,H:Q work ratio,H:Q,inherits flexor weakness,TotalWork_HQ_Ratio_pct,5,5,103.9,13.5,947.2,132.9,88.8,24.1,3926.5,88.1,101.5,,2.4,True,-12.7,True
+NOEXO_L_vs_R,Hip-ext / knee-ext,H:Q,functional H:Q,PeakTorque_HQ_Ratio_pct,5,5,74.0,54.4,99.7,23.0,68.7,59.2,81.0,8.9,98.5,,-24.5,False,-29.8,False
+NOEXO_L_vs_EXO_R,Knee extensor peak,Extension,direct,Extension_PeakTorque_ftlb,5,5,125.9,105.3,152.7,10.6,114.7,106.9,121.6,6.8,97.8,0.07,28.1,False,16.9,False
+NOEXO_L_vs_EXO_R,Knee extensor work,Extension,direct,Extension_TotalWork_ftlb,5,5,83.7,56.1,137.8,13.6,110.6,81.8,153.0,24.6,91.9,0.0,-8.2,True,18.7,True
+NOEXO_L_vs_EXO_R,Knee extensor impulse,Extension,direct-ish,Extension_TotalWork_ftlb,5,5,100.2,73.2,143.8,19.3,106.2,84.3,133.6,19.4,91.9,0.0,8.3,True,14.3,True
+NOEXO_L_vs_EXO_R,Knee flexor peak,Flexion,direct but weak,Flexion_PeakTorque_ftlb,5,5,44.6,8.5,99.7,106.8,67.0,31.6,103.7,57.6,103.6,0.05,-59.0,False,-36.6,True
+NOEXO_L_vs_EXO_R,Knee flexor work,Flexion,direct but weak,Flexion_TotalWork_ftlb,5,5,36.8,6.9,152.9,116.1,59.7,20.6,268.7,74.8,104.3,0.0,-67.5,True,-44.6,True
+NOEXO_L_vs_EXO_R,Hip extensor peak,Flexion,functional,Flexion_PeakTorque_ftlb,5,5,114.8,96.0,145.3,28.0,119.5,107.1,135.8,9.4,103.6,0.05,11.2,True,15.9,False
+NOEXO_L_vs_EXO_R,Hip extensor work,Flexion,functional,Flexion_TotalWork_ftlb,5,5,70.7,51.4,92.3,31.5,91.0,71.2,116.4,24.1,104.3,0.0,-33.6,False,-13.3,True
+NOEXO_L_vs_EXO_R,H:Q peak ratio,H:Q,inherits flexor weakness,PeakTorque_HQ_Ratio_pct,5,5,34.1,7.9,82.0,103.5,59.2,28.2,93.5,58.1,104.9,,-70.8,False,-45.7,False
+NOEXO_L_vs_EXO_R,H:Q work ratio,H:Q,inherits flexor weakness,TotalWork_HQ_Ratio_pct,5,5,30.4,4.4,174.0,132.9,45.5,13.3,308.2,88.1,115.0,,-84.6,True,-69.5,True
+NOEXO_L_vs_EXO_R,Hip-ext / knee-ext,H:Q,functional H:Q,PeakTorque_HQ_Ratio_pct,5,5,88.1,69.7,112.1,23.0,104.5,95.5,117.4,8.9,104.9,,-16.8,True,-0.4,True
+EXO_R_vs_NOEXO_R,Knee extensor peak,Extension,direct,Extension_PeakTorque_ftlb,5,5,103.0,80.9,130.6,20.9,118.0,107.0,130.0,4.7,,0.05,,True,,False
+EXO_R_vs_NOEXO_R,Knee extensor work,Extension,direct,Extension_TotalWork_ftlb,5,5,107.3,61.7,174.3,56.5,80.5,54.9,116.0,30.9,108.4,0.0,-1.1,True,-27.9,True
+EXO_R_vs_NOEXO_R,Knee extensor impulse,Extension,direct-ish,Extension_TotalWork_ftlb,5,5,84.7,56.4,124.4,37.6,83.8,62.6,112.5,22.4,108.4,0.0,-23.7,True,-24.6,True
+EXO_R_vs_NOEXO_R,Knee flexor peak,Flexion,direct but weak,Flexion_PeakTorque_ftlb,5,5,163.7,78.0,631.0,50.1,46.8,29.1,78.6,33.1,94.1,0.03,69.6,True,-47.3,False
+EXO_R_vs_NOEXO_R,Knee flexor work,Flexion,direct but weak,Flexion_TotalWork_ftlb,5,5,306.7,76.1,1979.0,99.2,156.3,33.9,5628.7,107.0,93.2,0.0,213.5,True,63.1,True
+EXO_R_vs_NOEXO_R,Hip extensor peak,Flexion,functional,Flexion_PeakTorque_ftlb,5,5,88.1,80.1,97.0,7.3,78.9,70.2,86.6,11.7,94.1,0.03,-6.0,False,-15.2,False
+EXO_R_vs_NOEXO_R,Hip extensor work,Flexion,functional,Flexion_TotalWork_ftlb,5,5,119.7,96.9,147.2,17.5,125.9,102.0,154.2,20.4,93.2,0.0,26.5,True,32.7,False
+EXO_R_vs_NOEXO_R,H:Q peak ratio,H:Q,inherits flexor weakness,PeakTorque_HQ_Ratio_pct,5,5,147.8,60.8,757.0,64.6,38.5,22.6,69.9,34.6,93.8,,54.0,True,-55.3,False
+EXO_R_vs_NOEXO_R,H:Q work ratio,H:Q,inherits flexor weakness,TotalWork_HQ_Ratio_pct,5,5,342.3,62.1,3185.2,114.6,195.2,24.9,9521.6,121.3,88.2,,254.1,True,107.0,True
+EXO_R_vs_NOEXO_R,Hip-ext / knee-ext,H:Q,functional H:Q,PeakTorque_HQ_Ratio_pct,5,5,84.0,62.1,111.1,20.3,65.7,56.5,77.3,9.3,93.8,,-9.8,True,-28.1,False

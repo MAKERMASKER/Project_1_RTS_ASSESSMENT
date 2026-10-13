@@ -1,0 +1,10 @@
+Metric,Predicted,n,Framework_MeanAbsGap,Framework_rho,Marker_MeanAbsGap,Marker_rho
+Push-off support moment peak,Extension,4,8.3,0.8,6.2,0.4
+Landing support moment peak,Extension,4,17.1,-0.2,12.4,0.8
+Push-off hip extensor peak,Flexion,4,18.9,-0.8,17.9,-0.2
+Landing knee extensor peak,Extension,4,21.7,-0.8,14.2,0.0
+Push-off knee extensor peak,Extension,4,28.5,-0.4,25.7,-0.8
+Landing hip eccentric work,Flexion,4,34.6,-0.6,42.2,-0.4
+Landing knee eccentric work,Extension,4,36.0,-0.8,27.8,-1.0
+Push-off knee concentric work,Extension,4,38.2,-0.8,20.9,0.8
+Push-off hip concentric work,Flexion,4,43.0,-0.4,33.1,-0.4

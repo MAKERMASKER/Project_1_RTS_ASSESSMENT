@@ -33,10 +33,24 @@ def center_of_mass(model_path, ik):
     if rotations and np.nanmax(np.abs(values[:, rotations])) > 6.5:
         values[:, rotations] = np.deg2rad(values[:, rotations])
     mass = sum(model.getBodySet().get(i).getMass() for i in range(model.getBodySet().getSize()))
+    # Coordinate.setValue() defaults to enforceConstraints=True, which runs a
+    # full assembly solve PER COORDINATE. With ~33 coordinates that is ~33
+    # redundant solves per frame; measured at 265 ms/frame, i.e. ~10 minutes
+    # for a single 3000-frame trial. Setting all coordinates first and
+    # assembling ONCE per frame is mathematically the same (verified: max COM
+    # difference 4.0e-08 m over a real trial) and ~32x faster.
+    #
+    # Skipping assembly altogether is ~45000x faster but NOT safe here: it
+    # leaves the patellofemoral coupler constraints unsatisfied, giving a
+    # 2.9e-05 m per-frame COM error. That is invisible in position but this
+    # COM gets double-differentiated for GRF, where a per-frame error of that
+    # size becomes ~0.9 m/s^2 -- around 63 N for a 70 kg subject.
+    handles = [coordinates.get(name) for name in names]
     result = np.zeros((len(ik), 3))
     for row in range(len(ik)):
-        for column, name in enumerate(names):
-            coordinates.get(name).setValue(state, float(values[row, column]))
+        for handle, value in zip(handles, values[row]):
+            handle.setValue(state, float(value), False)
+        model.assemble(state)
         model.realizePosition(state)
         position = model.calcMassCenterPosition(state)
         result[row] = [position.get(i) for i in range(3)]
@@ -75,12 +89,17 @@ def center_of_mass_and_momentum_rate(model_path, ik, time, cutoff_hz=4.5):
     speeds = np.gradient(values, time, axis=0)
     com = np.zeros((len(time), 3))
     momentum = np.zeros((len(time), 3))
+    # Same per-coordinate assembly problem as center_of_mass() above -- see
+    # the comment there. Positions are set first and assembled once, then
+    # speeds are applied, since assembly adjusts coordinate VALUES only.
+    handles = [coordinates.get(name) for name in names]
     for row in range(len(time)):
         state.setTime(float(time[row]))
-        for column, name in enumerate(names):
-            coordinate = coordinates.get(name)
-            coordinate.setValue(state, float(values[row, column]))
-            coordinate.setSpeedValue(state, float(speeds[row, column]))
+        for handle, value in zip(handles, values[row]):
+            handle.setValue(state, float(value), False)
+        model.assemble(state)
+        for handle, speed in zip(handles, speeds[row]):
+            handle.setSpeedValue(state, float(speed))
         model.realizeVelocity(state)
         position = model.calcMassCenterPosition(state)
         angular = model.calcAngularMomentum(state)

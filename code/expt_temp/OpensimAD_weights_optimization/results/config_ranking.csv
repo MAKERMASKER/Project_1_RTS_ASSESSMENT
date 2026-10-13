@@ -1,0 +1,5 @@
+Config,Status,positionTrackingTerm,velocityTrackingTerm,accelerationTrackingTerm,activationTerm,OpenSimAD_vs_Marker_RMSE_N,OpenSimAD_vs_Marker_RMSE_pct,MarkerLSQGain,OpenSimADLSQGain,GainPctDiff
+config3_combined,non_convergent,100,10,500,0.1,268.1,42.4,0.914,0.773,-15.4
+config1_accel500,non_convergent,100,10,500,1.0,268.9,42.5,0.914,0.772,-15.6
+config0_baseline,converged,100,10,50,1.0,271.2,42.8,0.914,0.752,-17.8
+config2_activation01,converged,100,10,50,0.1,318.0,50.2,0.914,0.726,-20.6

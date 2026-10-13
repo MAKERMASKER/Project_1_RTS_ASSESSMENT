@@ -1,0 +1,11 @@
+Trial,Side,Status,N_samples,OpenSimAD_vs_Marker_RMSE_N,OpenSimAD_vs_Marker_RMSE_pct,MarkerLSQGain,OpenSimADLSQGain,GainPctDiff,TraceRMSE_with_MarkerGain_N,TraceRMSE_with_OpenSimADGain_N
+AB03_NOEXO_SLJ_L_3,L,converged,30,724.7,114.8,0.932,0.298,-68.0,62.5,624.9
+AB03_NOEXO_SLJ_R_1,R,converged,30,271.2,42.8,0.914,0.752,-17.8,61.9,177.4
+AB05_NOEXO_SLJ_L_1,L,non_convergent,30,406.6,80.9,0.786,0.392,-50.2,35.3,372.3
+AB05_NOEXO_SLJ_R_1,R,non_convergent,30,378.8,72.0,0.848,0.698,-17.7,85.1,158.1
+AB07_NOEXO_SLJ_L_1,L,converged,30,374.5,80.7,0.886,0.78,-11.9,60.8,101.1
+AB07_NOEXO_SLJ_R_1,R,non_convergent,30,193.3,39.8,0.977,0.881,-9.9,63.7,93.3
+AB08_NOEXO_SLJ_L_1,L,converged,30,273.3,56.9,0.71,0.673,-5.3,101.1,107.4
+AB08_NOEXO_SLJ_R_2,R,converged,30,304.6,62.7,0.767,0.664,-13.4,44.5,106.1
+AB10_NOEXO_SLJ_L_1,L,converged,30,245.3,45.0,1.162,1.002,-13.7,50.5,120.6
+AB10_NOEXO_SLJ_R_1,R,non_convergent,30,209.7,37.7,1.109,0.965,-13.0,33.2,110.6

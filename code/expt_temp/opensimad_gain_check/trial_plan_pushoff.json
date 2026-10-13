@@ -1,0 +1,132 @@
+[
+  {
+    "subject": "AB03",
+    "side": "L",
+    "trial_name": "AB03_NOEXO_SLJ_L_3",
+    "opencap_trial_name": "ABO3_NOEXO_SLJ_L_3",
+    "session_folder": "OpenCapData_5d72f488-5fe2-4e98-b0ee-0ac018f834d4",
+    "peak_grf_time_s": 6.489999999999995,
+    "time_window": [
+      5.7,
+      6.3
+    ],
+    "liftoff_time_s": 6.0
+  },
+  {
+    "subject": "AB03",
+    "side": "R",
+    "trial_name": "AB03_NOEXO_SLJ_R_1",
+    "opencap_trial_name": "ABO3_NOEXO_SLJ_R_1",
+    "session_folder": "OpenCapData_5d72f488-5fe2-4e98-b0ee-0ac018f834d4",
+    "peak_grf_time_s": 4.019999999999996,
+    "time_window": [
+      3.24,
+      3.84
+    ],
+    "liftoff_time_s": 3.54
+  },
+  {
+    "subject": "AB05",
+    "side": "L",
+    "trial_name": "AB05_NOEXO_SLJ_L_1",
+    "opencap_trial_name": "AB05_NOEXO_SLJ_L_1",
+    "session_folder": "OpenCapData_29199465-be20-47ee-af84-30363ec0299f",
+    "peak_grf_time_s": 5.575000000000003,
+    "time_window": [
+      4.875,
+      5.475
+    ],
+    "liftoff_time_s": 5.175
+  },
+  {
+    "subject": "AB05",
+    "side": "R",
+    "trial_name": "AB05_NOEXO_SLJ_R_1",
+    "opencap_trial_name": "AB05_NOEXO_SLJ_R_1",
+    "session_folder": "OpenCapData_29199465-be20-47ee-af84-30363ec0299f",
+    "peak_grf_time_s": 5.233333300000012,
+    "time_window": [
+      4.523,
+      5.123
+    ],
+    "liftoff_time_s": 4.823
+  },
+  {
+    "subject": "AB07",
+    "side": "L",
+    "trial_name": "AB07_NOEXO_SLJ_L_1",
+    "opencap_trial_name": "AB08_NOEXO_SLJ_L_1",
+    "session_folder": "OpenCapData_25f76f3d-5305-435b-bf23-9553c34c0d8d",
+    "peak_grf_time_s": 4.826666700000004,
+    "time_window": [
+      4.147,
+      4.747
+    ],
+    "liftoff_time_s": 4.447
+  },
+  {
+    "subject": "AB07",
+    "side": "R",
+    "trial_name": "AB07_NOEXO_SLJ_R_1",
+    "opencap_trial_name": "AB08_NOEXO_SLJ_R_1",
+    "session_folder": "OpenCapData_25f76f3d-5305-435b-bf23-9553c34c0d8d",
+    "peak_grf_time_s": 5.7066666999999995,
+    "time_window": [
+      5.047,
+      5.647
+    ],
+    "liftoff_time_s": 5.347
+  },
+  {
+    "subject": "AB08",
+    "side": "L",
+    "trial_name": "AB08_NOEXO_SLJ_L_1",
+    "opencap_trial_name": "AB08_NOEXO_SLJ_L_1",
+    "session_folder": "OpenCapData_b3e1ba59-604c-4d22-af2d-579ced1c0c58",
+    "peak_grf_time_s": 4.675000000000004,
+    "time_window": [
+      4.015,
+      4.615
+    ],
+    "liftoff_time_s": 4.315
+  },
+  {
+    "subject": "AB08",
+    "side": "R",
+    "trial_name": "AB08_NOEXO_SLJ_R_2",
+    "opencap_trial_name": "AB08_NOEXO_SLJ_R_2",
+    "session_folder": "OpenCapData_b3e1ba59-604c-4d22-af2d-579ced1c0c58",
+    "peak_grf_time_s": 5.411666699999998,
+    "time_window": [
+      4.712,
+      5.312
+    ],
+    "liftoff_time_s": 5.012
+  },
+  {
+    "subject": "AB10",
+    "side": "L",
+    "trial_name": "AB10_NOEXO_SLJ_L_1",
+    "opencap_trial_name": "AB10_NOEXO_SLJ_L_1",
+    "session_folder": "OpenCapData_6a297693-c9f1-43d6-9cb1-674362f796d7",
+    "peak_grf_time_s": 6.290000000000006,
+    "time_window": [
+      5.55,
+      6.15
+    ],
+    "liftoff_time_s": 5.85
+  },
+  {
+    "subject": "AB10",
+    "side": "R",
+    "trial_name": "AB10_NOEXO_SLJ_R_1",
+    "opencap_trial_name": "AB10_NOEXO_SLJ_R_1",
+    "session_folder": "OpenCapData_6a297693-c9f1-43d6-9cb1-674362f796d7",
+    "peak_grf_time_s": 3.963333300000002,
+    "time_window": [
+      3.193,
+      3.793
+    ],
+    "liftoff_time_s": 3.493
+  }
+]
